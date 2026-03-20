@@ -2,13 +2,14 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>📚 易学 · 轻松复习</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
@@ -30,6 +31,8 @@
             --warning-bg: #fff8e1;
             --warning-text: #b76e2e;
             --transition-speed: 0.3s;
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
             
             --card-transition: 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1);
             --known-animation: knownPopSoft 0.4s ease;
@@ -435,7 +438,7 @@
             font-size: 0.9rem;
         }
 
-        /* 空状态 - 优化版 */
+        /* 空状态 */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -1281,6 +1284,308 @@
             60% { transform: translateX(-3px); }
             100% { transform: translateX(0); }
         }
+
+        /* ========== 横竖屏适配 ========== */
+        @media (orientation: landscape) and (max-height: 600px) {
+            /* 横屏模式 - 优化布局 */
+            .left-nav {
+                width: 180px;
+                padding: 20px 16px;
+            }
+
+            .logo-area {
+                font-size: 1.2rem;
+                margin-bottom: 8px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .main-content {
+                padding: 20px 30px;
+            }
+
+            .subject-bar {
+                margin-bottom: 16px;
+                padding: 6px 12px;
+            }
+
+            .subject-tab {
+                padding: 4px 12px;
+                font-size: 0.9rem;
+            }
+
+            .group-bar {
+                margin-bottom: 12px;
+            }
+
+            .group-tab {
+                padding: 4px 12px;
+                font-size: 0.85rem;
+            }
+
+            .content-header h2 {
+                font-size: 1.3rem;
+            }
+
+            /* 横屏时卡片稍微变小 */
+            .card-wrapper {
+                max-width: 400px;
+                margin: 10px 0 20px;
+            }
+
+            .flip-card {
+                max-height: 450px;
+            }
+
+            .card-front h3 {
+                font-size: 1.5rem;
+            }
+
+            .dictionary-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 15px;
+            }
+
+            .cards-grid {
+                max-height: 400px;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .selection-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .selection-footer {
+                margin-top: 16px;
+            }
+        }
+
+        @media (orientation: portrait) and (max-width: 600px) {
+            /* 竖屏手机模式 - 完全适配 */
+            .left-nav {
+                width: 80px;
+                padding: 20px 8px;
+            }
+
+            .logo-area {
+                font-size: 1.2rem;
+                padding-left: 0;
+                text-align: center;
+            }
+
+            .nav-btn {
+                padding: 10px 4px;
+                font-size: 0.8rem;
+                justify-content: center;
+                gap: 4px;
+            }
+
+            .nav-btn span {
+                font-size: 0.7rem;
+            }
+
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .subject-bar {
+                padding: 6px 10px;
+                margin-bottom: 16px;
+            }
+
+            .subject-tab {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+            }
+
+            .manage-subject-btn {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .global-counter {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            .group-bar {
+                margin-bottom: 12px;
+            }
+
+            .group-tab {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .manage-group-btn {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+
+            .content-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .action-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+
+            /* 卡片尺寸适配竖屏 */
+            .card-wrapper {
+                max-width: 100%;
+                margin: 10px 0 20px;
+            }
+
+            .flip-card {
+                max-height: 500px;
+            }
+
+            .card-front h3 {
+                font-size: 1.4rem;
+            }
+
+            .gesture-row {
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+
+            .progress-stats {
+                padding: 8px 12px;
+            }
+
+            /* 词典网格适配竖屏 */
+            .dictionary-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .dict-card {
+                padding: 16px;
+            }
+
+            .dict-question {
+                font-size: 1rem;
+                padding-right: 60px;
+            }
+
+            /* 选择卡片界面适配竖屏 */
+            .selection-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .selection-actions {
+                width: 100%;
+                display: flex;
+                gap: 8px;
+            }
+
+            .secondary-btn, .primary-btn {
+                flex: 1;
+                padding: 8px 0;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-height: 400px;
+            }
+
+            .selectable-card {
+                padding: 12px;
+            }
+
+            .selection-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .selected-count {
+                text-align: center;
+            }
+
+            /* 复习界面头部适配竖屏 */
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .back-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+
+            /* 添加卡片表单适配竖屏 */
+            .add-form-card {
+                grid-template-columns: 1fr;
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .form-actions {
+                grid-column: span 1;
+            }
+
+            /* 设置页面适配竖屏 */
+            .settings-card {
+                padding: 20px;
+            }
+
+            .setting-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .theme-toggle-group {
+                width: 100%;
+            }
+
+            .theme-option {
+                flex: 1;
+                text-align: center;
+                padding: 6px 12px;
+            }
+
+            .color-picker-wrapper {
+                width: 100%;
+            }
+
+            .animation-select {
+                width: 100%;
+            }
+
+            /* 模态框适配竖屏 */
+            .manager-content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body data-animation="soft">
@@ -1288,13 +1593,13 @@
         <div class="left-nav">
             <div class="logo-area">📚 易学</div>
             <button class="nav-btn active" id="navReview" data-page="review">
-                📇 复习卡
+                📇 <span>复习卡</span>
             </button>
             <button class="nav-btn" id="navDictionary" data-page="dictionary">
-                📖 词典
+                📖 <span>词典</span>
             </button>
             <button class="nav-btn" id="navSettings" data-page="settings">
-                ⚙️ 设置
+                ⚙️ <span>设置</span>
             </button>
         </div>
 
@@ -1616,7 +1921,7 @@
             let currentGroup = '全部';
             let subjectToEdit = null;
             let groupToEdit = null;
-            let isAnimating = false; // 防止动画冲突
+            let isAnimating = false;
 
             // 复习选择相关
             let selectedCards = [];
@@ -1830,11 +2135,9 @@
             window.deleteCard = function(subject, index) {
                 if (subject === currentSubject) {
                     cardData[subject].splice(index, 1);
-                    // 使用requestAnimationFrame避免闪屏
                     requestAnimationFrame(() => {
                         renderDictionary();
                         updateTotalCardsCount();
-                        // 同时更新复习选择界面
                         if (currentPage === 'review') {
                             renderCardSelection();
                         }
@@ -1876,7 +2179,6 @@
                     `;
                 });
 
-                // 使用innerHTML但通过requestAnimationFrame避免闪屏
                 requestAnimationFrame(() => {
                     cardsGrid.innerHTML = html || '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-secondary);">暂无卡片，请先去词典创建</div>';
 
@@ -1893,7 +2195,6 @@
                                 selectedCards.push({ subject, index });
                             }
                             
-                            // 优化：直接更新类而不是重新渲染
                             el.classList.toggle('selected');
                             updateSelectedCount();
                         });
@@ -1990,7 +2291,7 @@
             }
 
             function handleKnown(known) {
-                if (reviewCards.length === 0 || isAnimating) return;
+                if (reviewCards.length === 0) return;
 
                 totalReviewed++;
                 if (known) {
@@ -1999,24 +2300,20 @@
                     wrongCards.push(reviewCards[currentIndex]);
                 }
 
-                // 从当前队列中移除
                 reviewCards.splice(currentIndex, 1);
 
-                // 如果还有卡片，调整索引
                 if (reviewCards.length > 0) {
                     if (currentIndex >= reviewCards.length) {
                         currentIndex = 0;
                     }
                 }
 
-                // 如果当前队列为空但还有错误卡片，重新加入
                 if (reviewCards.length === 0 && wrongCards.length > 0) {
                     reviewCards = [...wrongCards];
                     wrongCards = [];
                     currentIndex = 0;
                 }
 
-                // 立即更新显示，不要等待动画结束
                 updateReviewDisplay();
             }
 
@@ -2026,7 +2323,7 @@
                 renderCardSelection();
             }
 
-            // ========== 手势控制 - 修复右滑bug ==========
+            // ========== 滑动控制 ==========
             let startX = 0, currentX = 0, isDragging = false;
             const threshold = 60;
 
@@ -2062,18 +2359,15 @@
                         flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
                         flipCard.style.transform = 'translateX(150%) rotate(10deg)';
                         
-                        // 确保翻回正面
                         if (isFlipped) {
                             flipCard.classList.remove('flipped');
                             isFlipped = false;
                         }
                         
-                        // 动画结束后处理
                         setTimeout(() => {
                             flipCard.style.transform = '';
                             flipCard.style.transition = 'none';
                             handleKnown(true);
-                            // 重置动画状态
                             setTimeout(() => {
                                 flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
                                 isAnimating = false;
@@ -2081,21 +2375,17 @@
                         }, 300);
                     } else {
                         // 左滑 - 不知道
-                        // 第一步：先回正
                         flipCard.style.transition = 'transform 0.2s ease';
                         flipCard.style.transform = '';
                         
                         setTimeout(() => {
-                            // 第二步：翻转显示注释
                             flipCard.classList.add('flipped');
                             isFlipped = true;
                             
-                            // 第三步：停留800ms后翻回
                             setTimeout(() => {
                                 flipCard.classList.remove('flipped');
                                 isFlipped = false;
                                 
-                                // 第四步：再停留一点后滑出
                                 setTimeout(() => {
                                     flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
                                     flipCard.style.transform = 'translateX(-150%) rotate(-10deg)';
@@ -2110,7 +2400,7 @@
                                         }, 50);
                                     }, 300);
                                 }, 100);
-                            }, 800);
+                            }, 2000);
                         }, 200);
                     }
                 } else {
@@ -2170,7 +2460,6 @@
                             }, 50);
                         }, 300);
                     } else {
-                        // 左滑 - 不知道
                         flipCard.style.transition = 'transform 0.2s ease';
                         flipCard.style.transform = '';
                         
@@ -2196,7 +2485,7 @@
                                         }, 50);
                                     }, 300);
                                 }, 100);
-                            }, 800);
+                            }, 2000);
                         }, 200);
                     }
                 } else {
@@ -2323,7 +2612,6 @@
                 renderDictionary();
                 updateTotalCardsCount();
                 
-                // 同时更新复习选择界面
                 if (currentPage === 'review') {
                     renderCardSelection();
                 }
@@ -2591,7 +2879,6 @@
                 document.body.setAttribute('data-animation', e.target.value);
             });
 
-            // 点击模态框背景关闭
             window.addEventListener('click', (e) => {
                 if (e.target === renameSubjectModal) renameSubjectModal.classList.add('hidden');
                 if (e.target === deleteSubjectModal) deleteSubjectModal.classList.add('hidden');
