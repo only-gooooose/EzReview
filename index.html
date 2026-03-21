@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>📚 易学 · 轻松复习</title>
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+    <title>📚 EzReview · Smart Flashcards</title>
     <style>
         * {
             margin: 0;
@@ -84,6 +84,7 @@
         .app-layout {
             display: flex;
             min-height: 100vh;
+            width: 100%;
         }
 
         .left-nav {
@@ -96,6 +97,7 @@
             gap: 16px;
             transition: background-color var(--transition-speed), border-color var(--transition-speed);
             position: relative;
+            flex-shrink: 0;
         }
 
         .logo-area {
@@ -105,6 +107,7 @@
             padding-left: 8px;
             margin-bottom: 16px;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .nav-btn {
@@ -122,6 +125,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .nav-btn:hover {
@@ -135,7 +139,6 @@
             transform: translateX(4px);
         }
 
-        /* 关于我们按钮 - 固定在左下角 */
         .about-btn {
             border: none;
             background: transparent;
@@ -152,6 +155,7 @@
             align-items: center;
             gap: 8px;
             margin-top: auto;
+            white-space: nowrap;
         }
 
         .about-btn:hover {
@@ -165,10 +169,13 @@
             overflow-y: auto;
             background: var(--bg-primary);
             transition: background-color var(--transition-speed);
+            min-width: 0;
         }
 
         .page {
             animation: pageEnter 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         @keyframes pageEnter {
@@ -183,7 +190,6 @@
             }
         }
 
-        /* 学科选择栏 */
         .subject-bar {
             display: flex;
             align-items: center;
@@ -226,6 +232,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
         }
 
         .subject-tab::after {
@@ -265,9 +272,37 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
         }
 
         .manage-subject-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .excel-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 8px;
+        }
+
+        .excel-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 30px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .excel-btn:hover {
             background: var(--accent-color);
             color: white;
             transform: scale(1.05);
@@ -280,9 +315,9 @@
             background: var(--bg-primary);
             border-radius: 30px;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        /* 分组导航 */
         .group-bar {
             display: flex;
             align-items: center;
@@ -313,6 +348,7 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .group-tab:hover {
@@ -338,6 +374,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
         }
 
         .manage-group-btn:hover {
@@ -346,12 +383,13 @@
             transform: scale(1.05);
         }
 
-        /* 内容头部 */
         .content-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .content-header h2 {
@@ -359,6 +397,7 @@
             font-size: 1.6rem;
             color: var(--accent-color);
             transition: color 0.3s ease;
+            word-break: break-word;
         }
 
         .action-btn {
@@ -370,6 +409,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .action-btn:hover {
@@ -378,7 +418,6 @@
             box-shadow: 0 4px 12px var(--shadow);
         }
 
-        /* 词典网格 */
         .dictionary-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -460,6 +499,7 @@
             margin-bottom: 10px;
             color: var(--text-primary);
             padding-right: 70px;
+            word-break: break-word;
         }
 
         .dict-answer {
@@ -470,6 +510,7 @@
             margin-bottom: 12px;
             color: var(--text-secondary);
             font-size: 0.95rem;
+            word-break: break-word;
         }
 
         .dict-note {
@@ -477,9 +518,9 @@
             border-top: 1px dashed var(--border-color);
             padding-top: 12px;
             font-size: 0.9rem;
+            word-break: break-word;
         }
 
-        /* 空状态 */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -506,7 +547,6 @@
             transform: scale(1.05);
         }
 
-        /* 添加卡片表单 */
         .add-form-card {
             background: var(--card-bg);
             border-radius: 24px;
@@ -556,6 +596,7 @@
             color: var(--text-primary);
             font-family: inherit;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .form-group input:focus,
@@ -571,6 +612,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .save-btn {
@@ -581,6 +623,7 @@
             border-radius: 24px;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .save-btn:hover {
@@ -596,6 +639,7 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .cancel-btn:hover {
@@ -603,7 +647,6 @@
             transform: scale(1.05);
         }
 
-        /* 设置页面 */
         .settings-page {
             max-width: 800px;
             margin: 0 auto;
@@ -638,6 +681,8 @@
             padding: 16px 0;
             border-bottom: 1px solid var(--border-color);
             transition: border-color 0.3s ease;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .setting-item:last-child {
@@ -661,6 +706,7 @@
             background: var(--bg-primary);
             padding: 4px;
             border-radius: 40px;
+            flex-wrap: wrap;
         }
 
         .theme-option {
@@ -672,6 +718,7 @@
             color: var(--text-secondary);
             font-weight: 500;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .theme-option.active {
@@ -687,6 +734,7 @@
             padding: 6px 16px;
             border-radius: 40px;
             border: 1px solid var(--border-color);
+            flex-wrap: wrap;
         }
 
         .color-picker-input {
@@ -714,9 +762,21 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            max-width: 100%;
         }
 
-        /* 管理模态框 */
+        .language-selector {
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            max-width: 100%;
+        }
+
         .manager-modal {
             position: fixed;
             top: 0;
@@ -729,6 +789,7 @@
             justify-content: center;
             z-index: 1000;
             animation: fadeIn 0.3s ease;
+            padding: 16px;
         }
 
         @keyframes fadeIn {
@@ -773,6 +834,7 @@
 
         .manager-header h3 {
             color: var(--accent-color);
+            font-size: 1.3rem;
         }
 
         .close-btn {
@@ -782,6 +844,7 @@
             cursor: pointer;
             color: var(--text-secondary);
             transition: transform 0.3s ease;
+            padding: 4px 8px;
         }
 
         .close-btn:hover {
@@ -801,6 +864,8 @@
             border-radius: 20px;
             margin-bottom: 8px;
             transition: all 0.3s ease;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .list-item:hover {
@@ -810,6 +875,7 @@
         .list-item span {
             color: var(--text-primary);
             font-weight: 500;
+            word-break: break-word;
         }
 
         .item-actions {
@@ -825,6 +891,7 @@
             cursor: pointer;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .item-btn.edit {
@@ -854,10 +921,12 @@
         .add-input-group {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .add-input-group input {
             flex: 1;
+            min-width: 200px;
             padding: 10px 16px;
             border: 1px solid var(--border-color);
             border-radius: 24px;
@@ -880,6 +949,7 @@
             color: white;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .add-input-group button:hover {
@@ -898,6 +968,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1100;
+            padding: 16px;
         }
 
         .modal-content {
@@ -912,6 +983,7 @@
         .modal h3 {
             margin-bottom: 16px;
             color: var(--accent-color);
+            font-size: 1.2rem;
         }
 
         .modal-input {
@@ -928,6 +1000,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .link-btn {
@@ -939,11 +1012,11 @@
             font-size: 1rem;
             font-weight: 500;
             cursor: pointer;
-            width: 100%;
             transition: all 0.3s ease;
             text-align: center;
             text-decoration: none;
             display: inline-block;
+            min-width: 120px;
         }
 
         .link-btn:hover {
@@ -964,6 +1037,7 @@
             margin-top: 8px;
             transition: all 0.3s ease;
             word-break: break-all;
+            max-width: 100%;
         }
 
         .github-link:hover {
@@ -980,6 +1054,7 @@
             margin-bottom: 8px;
             color: var(--text-secondary);
             line-height: 1.6;
+            word-break: break-word;
         }
 
         .about-section strong {
@@ -991,7 +1066,6 @@
             display: none !important;
         }
 
-        /* 复习卡片选择界面 */
         .selection-header {
             display: flex;
             justify-content: space-between;
@@ -1004,11 +1078,13 @@
         .selection-header h2 {
             font-size: 1.8rem;
             color: var(--accent-color);
+            word-break: break-word;
         }
 
         .selection-actions {
             display: flex;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .primary-btn {
@@ -1020,6 +1096,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .primary-btn:hover {
@@ -1036,6 +1113,7 @@
             color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .secondary-btn:hover {
@@ -1059,6 +1137,7 @@
             font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-width: 150px;
         }
 
         .filter-select:hover {
@@ -1127,6 +1206,7 @@
             color: var(--text-secondary);
             margin-bottom: 8px;
             padding-right: 30px;
+            word-break: break-word;
         }
 
         .card-question {
@@ -1135,6 +1215,7 @@
             color: var(--text-primary);
             margin-bottom: 8px;
             padding-right: 30px;
+            word-break: break-word;
         }
 
         .card-group-badge {
@@ -1151,6 +1232,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .selected-count {
@@ -1158,12 +1241,13 @@
             font-size: 1rem;
         }
 
-        /* 复习界面 */
         .review-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .back-btn {
@@ -1177,6 +1261,7 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .back-btn:hover {
@@ -1188,6 +1273,7 @@
             display: flex;
             gap: 16px;
             color: var(--text-secondary);
+            flex-wrap: wrap;
         }
 
         .review-zone {
@@ -1250,6 +1336,7 @@
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease;
+            overflow-y: auto;
         }
 
         .card-front {
@@ -1272,6 +1359,7 @@
             background: var(--bg-primary);
             padding: 4px 12px;
             border-radius: 20px;
+            z-index: 1;
         }
 
         .group-tag {
@@ -1283,6 +1371,7 @@
             background: var(--bg-tertiary);
             padding: 4px 12px;
             border-radius: 20px;
+            z-index: 1;
         }
 
         .card-front h3 {
@@ -1291,6 +1380,8 @@
             margin-bottom: 20px;
             color: var(--text-primary);
             text-align: center;
+            word-break: break-word;
+            max-width: 100%;
         }
 
         .back-annotation {
@@ -1301,10 +1392,11 @@
             width: 100%;
             margin-top: 40px;
             font-size: 1rem;
-            line-height: 1.5;
+            line-height: 1.6;
             white-space: pre-line;
             color: var(--text-primary);
             transition: all 0.3s ease;
+            word-break: break-word;
         }
 
         .gesture-row {
@@ -1313,6 +1405,7 @@
             gap: 40px;
             margin: 16px 0;
             color: var(--text-secondary);
+            flex-wrap: wrap;
         }
 
         .progress-stats {
@@ -1327,6 +1420,8 @@
             border-radius: 40px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .progress-text {
@@ -1375,6 +1470,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .restart-btn:hover {
@@ -1427,365 +1523,85 @@
             }
         }
 
-        /* ========== 横竖屏适配 ========== */
-        @media (orientation: landscape) and (max-height: 600px) {
-            .left-nav {
-                width: 180px;
-                padding: 20px 16px;
+        @media (max-width: 768px) {
+            .excel-buttons {
+                margin-right: 0;
             }
 
-            .logo-area {
-                font-size: 1.2rem;
-                margin-bottom: 8px;
-            }
-
-            .nav-btn,
-            .about-btn {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-
-            .main-content {
-                padding: 20px 30px;
-            }
-
-            .subject-bar {
-                margin-bottom: 16px;
-                padding: 6px 12px;
-            }
-
-            .subject-tab {
-                padding: 4px 12px;
-                font-size: 0.9rem;
-            }
-
-            .group-bar {
-                margin-bottom: 12px;
-            }
-
-            .group-tab {
-                padding: 4px 12px;
-                font-size: 0.85rem;
-            }
-
-            .content-header h2 {
-                font-size: 1.3rem;
-            }
-
-            .card-wrapper {
-                max-width: 400px;
-                margin: 10px 0 20px;
-            }
-
-            .flip-card {
-                max-height: 450px;
-            }
-
-            .card-front h3 {
-                font-size: 1.5rem;
-            }
-
-            .dictionary-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 15px;
-            }
-
-            .cards-grid {
-                max-height: 400px;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
-            .selection-header h2 {
-                font-size: 1.5rem;
-            }
-
-            .selection-footer {
-                margin-top: 16px;
+            .excel-btn {
+                padding: 4px 10px;
+                font-size: 0.8rem;
             }
         }
 
-        @media (orientation: portrait) and (max-width: 600px) {
-            .left-nav {
-                width: 80px;
-                padding: 20px 8px;
-            }
-
-            .logo-area {
-                font-size: 1.2rem;
-                padding-left: 0;
-                text-align: center;
-            }
-
-            .nav-btn,
-            .about-btn {
-                padding: 10px 4px;
-                font-size: 0.8rem;
+        @media (max-width: 480px) {
+            .excel-buttons {
+                width: 100%;
                 justify-content: center;
-                gap: 4px;
             }
 
-            .nav-btn span,
-            .about-btn span {
-                font-size: 0.7rem;
-            }
-
-            .main-content {
-                padding: 20px 16px;
-            }
-
-            .subject-bar {
-                padding: 6px 10px;
-                margin-bottom: 16px;
-            }
-
-            .subject-tab {
-                padding: 4px 8px;
-                font-size: 0.8rem;
-            }
-
-            .manage-subject-btn {
-                padding: 4px 8px;
-                font-size: 0.75rem;
-            }
-
-            .global-counter {
-                font-size: 0.75rem;
-                padding: 4px 8px;
-            }
-
-            .group-bar {
-                margin-bottom: 12px;
-            }
-
-            .group-tab {
-                padding: 4px 8px;
-                font-size: 0.75rem;
-            }
-
-            .manage-group-btn {
-                padding: 4px 8px;
-                font-size: 0.75rem;
-            }
-
-            .content-header h2 {
-                font-size: 1.2rem;
-            }
-
-            .action-btn {
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-
-            .card-wrapper {
-                max-width: 100%;
-                margin: 10px 0 20px;
-            }
-
-            .flip-card {
-                max-height: 500px;
-            }
-
-            .card-front h3 {
-                font-size: 1.4rem;
-            }
-
-            .gesture-row {
-                gap: 20px;
-                font-size: 0.9rem;
-            }
-
-            .progress-stats {
-                padding: 8px 12px;
-            }
-
-            .dictionary-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .dict-card {
-                padding: 16px;
-            }
-
-            .dict-question {
-                font-size: 1rem;
-                padding-right: 60px;
-            }
-
-            .selection-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .selection-actions {
-                width: 100%;
-                display: flex;
-                gap: 8px;
-            }
-
-            .secondary-btn,
-            .primary-btn {
+            .excel-btn {
                 flex: 1;
-                padding: 8px 0;
-                font-size: 0.9rem;
-                text-align: center;
-            }
-
-            .filter-bar {
-                flex-direction: column;
-                gap: 8px;
-            }
-
-            .filter-select {
-                width: 100%;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-                max-height: 400px;
-            }
-
-            .selectable-card {
-                padding: 12px;
-            }
-
-            .selection-footer {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .selected-count {
-                text-align: center;
-            }
-
-            .review-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .back-btn {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-
-            .add-form-card {
-                grid-template-columns: 1fr;
-                padding: 16px;
-                gap: 12px;
-            }
-
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-
-            .form-actions {
-                grid-column: span 1;
-            }
-
-            .settings-card {
-                padding: 20px;
-            }
-
-            .setting-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .theme-toggle-group {
-                width: 100%;
-            }
-
-            .theme-option {
-                flex: 1;
-                text-align: center;
-                padding: 6px 12px;
-            }
-
-            .color-picker-wrapper {
-                width: 100%;
-            }
-
-            .animation-select {
-                width: 100%;
-            }
-
-            .manager-content {
-                width: 90%;
-                padding: 20px;
-            }
-
-            .modal-content {
-                width: 90%;
-                padding: 20px;
+                justify-content: center;
             }
         }
     </style>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
 </head>
 
 <body data-animation="soft">
     <div class="app-layout">
         <div class="left-nav">
-            <div class="logo-area">📚 易学</div>
+            <div class="logo-area" id="appLogo">📚 EzReview</div>
             <button class="nav-btn active" id="navReview" data-page="review">
-                📇 <span>复习卡</span>
+                📇 <span data-i18n="review">Review</span>
             </button>
             <button class="nav-btn" id="navDictionary" data-page="dictionary">
-                📖 <span>词典</span>
+                📖 <span data-i18n="dictionary">Dictionary</span>
             </button>
             <button class="nav-btn" id="navSettings" data-page="settings">
-                ⚙️ <span>设置</span>
+                ⚙️ <span data-i18n="settings">Settings</span>
             </button>
-
-            <!-- 关于我们按钮 - 固定在左下角 -->
             <button class="about-btn" id="aboutBtn">
-                📌 <span>关于我们</span>
+                📌 <span data-i18n="about">About</span>
             </button>
         </div>
 
         <div class="main-content">
-            <!-- 复习页面 -->
             <div id="reviewPage" class="page">
-                <!-- 卡片选择界面 -->
                 <div id="cardSelection">
                     <div class="selection-header">
-                        <h2>📋 选择要复习的卡片</h2>
+                        <h2 data-i18n="select_cards">📋 Select Cards to Review</h2>
                         <div class="selection-actions">
-                            <button class="secondary-btn" id="selectAllBtn">全选</button>
-                            <button class="secondary-btn" id="clearAllBtn">清空</button>
+                            <button class="secondary-btn" id="selectAllBtn" data-i18n="select_all">Select All</button>
+                            <button class="secondary-btn" id="clearAllBtn" data-i18n="clear_all">Clear All</button>
                         </div>
                     </div>
-
                     <div class="filter-bar">
                         <select class="filter-select" id="filterSubject">
-                            <option value="all">所有学科</option>
+                            <option value="all" data-i18n="all_subjects">All Subjects</option>
                         </select>
                         <select class="filter-select" id="filterGroup">
-                            <option value="all">所有分组</option>
+                            <option value="all" data-i18n="all_groups">All Groups</option>
                         </select>
                     </div>
-
                     <div class="cards-grid" id="cardsGrid"></div>
-
                     <div class="selection-footer">
-                        <span class="selected-count" id="selectedCount">已选择 0 张卡片</span>
-                        <button class="primary-btn" id="startReviewBtn">开始复习 (0)</button>
+                        <span class="selected-count" id="selectedCount" data-i18n="selected_cards">0 cards
+                            selected</span>
+                        <button class="primary-btn" id="startReviewBtn" data-i18n="start_review">Start Review
+                            (0)</button>
                     </div>
                 </div>
-
-                <!-- 复习界面 -->
                 <div id="reviewSession" class="hidden">
                     <div class="review-header">
                         <button class="back-btn" id="backToSelectionBtn">
-                            ← 返回选择
+                            ← <span data-i18n="back_to_selection">Back to Selection</span>
                         </button>
                         <div class="review-stats">
-                            <span id="reviewTotalCount">共 0 张</span>
+                            <span id="reviewTotalCount" data-i18n="total_cards">Total 0 cards</span>
                         </div>
                     </div>
-
                     <div id="reviewMain">
                         <div class="review-zone">
                             <div class="card-wrapper">
@@ -1795,6 +1611,8 @@
                                             <span class="subject-tag" id="frontSubject"></span>
                                             <span class="group-tag" id="frontGroup"></span>
                                             <h3 id="frontQuestion"></h3>
+                                            <span style="color: var(--text-secondary);" data-i18n="tap_to_flip">Tap to
+                                                flip</span>
                                         </div>
                                         <div class="card-back" id="cardBack">
                                             <span class="subject-tag" id="backSubject"></span>
@@ -1805,90 +1623,96 @@
                                 </div>
                             </div>
                             <div class="gesture-row">
-                                <span>👈 不知道</span>
-                                <span>知道 👉</span>
+                                <span>👈 <span data-i18n="dont_know">Don't Know</span></span>
+                                <span><span data-i18n="know">Know</span> 👉</span>
                             </div>
                             <div class="progress-stats">
-                                <span class="progress-text" id="reviewProgress">第 1 / 0 张</span>
+                                <span class="progress-text" id="reviewProgress" data-i18n="progress">Card 1 / 0</span>
                                 <span class="correct-rate" id="correctRate">0%</span>
                             </div>
                         </div>
                     </div>
-
                     <div id="reviewComplete" class="completion-screen hidden">
-                        <h2>🎉 恭喜！</h2>
-                        <p id="completionStats">你完成了本轮复习，正确率 0%</p>
-                        <button class="restart-btn" id="restartReviewBtn">重新选择</button>
+                        <h2 data-i18n="congratulations">🎉 Congratulations!</h2>
+                        <p id="completionStats" data-i18n="completion_stats">You completed the review with 0% accuracy
+                        </p>
+                        <button class="restart-btn" id="restartReviewBtn" data-i18n="reselect">Reselect</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 词典页面 -->
             <div id="dictionaryPage" class="page hidden">
                 <div class="subject-bar">
                     <div class="subject-left">
                         <div class="subject-tabs" id="dictSubjectTabs"></div>
-                        <button class="manage-subject-btn" id="manageSubjectBtn">✎ 管理学科</button>
+                        <button class="manage-subject-btn" id="manageSubjectBtn">✎ <span
+                                data-i18n="manage_subjects">Manage Subjects</span></button>
                     </div>
-                    <span class="global-counter" id="dictCount">生物 3个知识点</span>
+                    <div class="excel-buttons">
+                        <button class="excel-btn" id="exportAllBtn" data-i18n="export">Export</button>
+                        <button class="excel-btn" id="importAllBtn" data-i18n="import">Import</button>
+                        <input type="file" id="excelFileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+                    </div>
                 </div>
 
                 <div class="group-bar">
                     <div class="group-left">
                         <div class="group-tabs" id="groupTabs"></div>
-                        <button class="manage-group-btn" id="manageGroupBtn">✎ 管理分组</button>
+                        <button class="manage-group-btn" id="manageGroupBtn">✎ <span data-i18n="manage_groups">Manage
+                                Groups</span></button>
                     </div>
                 </div>
 
                 <div class="content-header">
-                    <h2 id="dictTitle">词典 · 生物</h2>
-                    <button class="action-btn" id="showAddCardBtn">➕ 添加卡片</button>
+                    <h2 id="dictTitle">Dictionary · Biology</h2>
+                    <button class="action-btn" id="showAddCardBtn">➕ <span data-i18n="add_card">Add Card</span></button>
                 </div>
 
                 <div id="addCardForm" class="add-form-card hidden">
                     <div class="form-group">
-                        <label>问题</label>
-                        <input type="text" id="cardQuestion" placeholder="例如：细胞核的功能？">
+                        <label data-i18n="question">Question</label>
+                        <input type="text" id="cardQuestion" placeholder="e.g., Function of nucleus?">
                     </div>
                     <div class="form-group">
-                        <label>答案</label>
-                        <input type="text" id="cardAnswer" placeholder="例如：储存DNA">
+                        <label data-i18n="answer">Answer</label>
+                        <input type="text" id="cardAnswer" placeholder="e.g., Stores DNA">
                     </div>
                     <div class="form-group">
-                        <label>分组</label>
+                        <label data-i18n="group">Group</label>
                         <select id="cardGroup"></select>
                     </div>
                     <div class="form-group full-width">
-                        <label>注释</label>
-                        <textarea id="cardAnnotation" placeholder="详细说明或提示" rows="2"></textarea>
+                        <label data-i18n="annotation">Note</label>
+                        <textarea id="cardAnnotation" placeholder="Detailed explanation or hints" rows="2"></textarea>
                     </div>
                     <div class="form-actions">
-                        <button class="save-btn" id="saveCard">保存</button>
-                        <button class="cancel-btn" id="cancelAddCard">取消</button>
+                        <button class="save-btn" id="saveCard" data-i18n="save">Save</button>
+                        <button class="cancel-btn" id="cancelAddCard" data-i18n="cancel">Cancel</button>
                     </div>
                 </div>
 
                 <div id="dictionaryGrid" class="dictionary-grid"></div>
             </div>
 
-            <!-- 设置页面 -->
             <div id="settingsPage" class="page hidden settings-page">
                 <div class="settings-card">
-                    <div class="settings-title">🎨 外观设置</div>
+                    <div class="settings-title">🎨 <span data-i18n="appearance">Appearance</span></div>
                     <div class="setting-item">
                         <div>
-                            <div class="setting-label">深色/浅色模式</div>
-                            <div class="setting-description">切换界面明暗主题</div>
+                            <div class="setting-label" data-i18n="dark_mode">Dark/Light Mode</div>
+                            <div class="setting-description" data-i18n="dark_mode_desc">Toggle dark/light theme</div>
                         </div>
                         <div class="theme-toggle-group" id="themeToggle">
-                            <button class="theme-option active" data-theme="light">☀️ 浅色</button>
-                            <button class="theme-option" data-theme="dark">🌙 深色</button>
+                            <button class="theme-option active" data-theme="light">☀️ <span
+                                    data-i18n="light">Light</span></button>
+                            <button class="theme-option" data-theme="dark">🌙 <span
+                                    data-i18n="dark">Dark</span></button>
                         </div>
                     </div>
                     <div class="setting-item">
                         <div>
-                            <div class="setting-label">主题颜色</div>
-                            <div class="setting-description">自定义强调色</div>
+                            <div class="setting-label" data-i18n="theme_color">Theme Color</div>
+                            <div class="setting-description" data-i18n="theme_color_desc">Custom accent color</div>
                         </div>
                         <div class="color-picker-wrapper">
                             <input type="color" id="themeColor" class="color-picker-input" value="#3b6e9c">
@@ -1897,32 +1721,46 @@
                     </div>
                 </div>
                 <div class="settings-card">
-                    <div class="settings-title">✨ 动画风格</div>
+                    <div class="settings-title">✨ <span data-i18n="animation">Animation</span></div>
                     <div class="setting-item">
                         <div>
-                            <div class="setting-label">卡片动画</div>
-                            <div class="setting-description">选择喜欢的动画效果</div>
+                            <div class="setting-label" data-i18n="card_animation">Card Animation</div>
+                            <div class="setting-description" data-i18n="animation_desc">Choose animation style</div>
                         </div>
                         <select id="animationStyle" class="animation-select">
-                            <option value="soft" selected>🌸 柔和</option>
-                            <option value="standard">🎯 标准</option>
-                            <option value="playful">🎪 活泼</option>
+                            <option value="soft" data-i18n="soft">🌸 Soft</option>
+                            <option value="standard" data-i18n="standard">🎯 Standard</option>
+                            <option value="playful" data-i18n="playful">🎪 Playful</option>
                         </select>
                     </div>
                 </div>
                 <div class="settings-card">
-                    <div class="settings-title">📊 数据统计</div>
+                    <div class="settings-title">🌐 <span data-i18n="language">Language</span></div>
                     <div class="setting-item">
                         <div>
-                            <div class="setting-label">总卡片数量</div>
-                            <div class="setting-description">所有学科卡片总数</div>
+                            <div class="setting-label" data-i18n="language_select">Interface Language</div>
+                            <div class="setting-description" data-i18n="language_desc">Choose display language</div>
+                        </div>
+                        <select id="languageSelector" class="language-selector">
+                            <option value="en" selected>🇬🇧 English</option>
+                            <option value="zh">🇨🇳 中文</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <div class="settings-title">📊 <span data-i18n="statistics">Statistics</span></div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label" data-i18n="total_cards">Total Cards</div>
+                            <div class="setting-description" data-i18n="total_cards_desc">Total cards across all
+                                subjects</div>
                         </div>
                         <span class="global-counter" id="totalCardsCount">15</span>
                     </div>
                     <div class="setting-item">
                         <div>
-                            <div class="setting-label">学科数量</div>
-                            <div class="setting-description">已创建的学科数</div>
+                            <div class="setting-label" data-i18n="total_subjects">Subjects</div>
+                            <div class="setting-description" data-i18n="total_subjects_desc">Number of subjects</div>
                         </div>
                         <span class="global-counter" id="subjectsCount">5</span>
                     </div>
@@ -1931,44 +1769,107 @@
         </div>
     </div>
 
-    <!-- 关于我们模态框 - 优化版 -->
+    <!-- 导出模态框 -->
+    <div id="exportModal" class="manager-modal hidden">
+        <div class="manager-content">
+            <div class="manager-header">
+                <h3>📤 <span data-i18n="export">Export</span></h3>
+                <button class="close-btn" id="closeExportModal">×</button>
+            </div>
+            <div class="about-section">
+                <p><strong data-i18n="export_filename">Filename:</strong></p>
+                <input type="text" id="exportFilename" class="modal-input" value="EzReview_All_Cards"
+                    style="margin-bottom: 20px;">
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;"
+                    data-i18n="export_hint">Export all cards from all subjects to Excel file.</p>
+                <div class="modal-actions">
+                    <button class="cancel-btn" id="cancelExportBtn" data-i18n="cancel">Cancel</button>
+                    <button class="save-btn" id="confirmExportBtn" data-i18n="confirm_export">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入模态框 -->
+    <div id="importModal" class="manager-modal hidden">
+        <div class="manager-content">
+            <div class="manager-header">
+                <h3>📥 <span data-i18n="import">Import</span></h3>
+                <button class="close-btn" id="closeImportModal">×</button>
+            </div>
+            <div class="about-section">
+                <p><strong data-i18n="import_file">Select File:</strong></p>
+                <div
+                    style="background: var(--bg-tertiary); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;">
+                    <input type="file" id="importFileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+                    <button class="action-btn" id="selectFileBtn" data-i18n="select_file">Choose File</button>
+                    <p id="selectedFileName"
+                        style="margin-top: 12px; color: var(--text-secondary); font-size: 0.85rem;">No file selected</p>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;"
+                    data-i18n="import_hint">Import cards from Excel file. Format: Subject, Group, Question, Answer,
+                    Note.</p>
+                <div class="modal-actions">
+                    <button class="cancel-btn" id="cancelImportBtn" data-i18n="cancel">Cancel</button>
+                    <button class="save-btn" id="confirmImportBtn" data-i18n="confirm_import">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 消息模态框 -->
+    <div id="messageModal" class="manager-modal hidden">
+        <div class="manager-content">
+            <div class="manager-header">
+                <h3 id="messageTitle">📢 <span data-i18n="notification">Notification</span></h3>
+                <button class="close-btn" id="closeMessageModal">×</button>
+            </div>
+            <div class="about-section">
+                <p id="messageContent" style="margin-bottom: 24px;"></p>
+                <div class="modal-actions">
+                    <button class="save-btn" id="closeMessageBtn" data-i18n="ok">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="aboutModal" class="manager-modal hidden">
         <div class="manager-content">
             <div class="manager-header">
-                <h3>📌 关于我们</h3>
+                <h3>📌 <span data-i18n="about">About Us</span></h3>
                 <button class="close-btn" id="closeAboutModal">×</button>
             </div>
             <div class="about-section">
-                <p><strong>关于我们：</strong></p>
-                <p>易学是一个开源的复习工具，帮助你高效记忆知识点。</p>
-                <p>项目完全免费，欢迎贡献代码或提出建议。</p>
+                <p><strong data-i18n="about_us">About Us:</strong></p>
+                <p data-i18n="about_text">EzReview is an open-source flashcard tool to help you memorize knowledge
+                    efficiently.</p>
+                <p data-i18n="about_text2">It's completely free. Contributions and suggestions are welcome!</p>
                 <a href="https://github.com/only-gooooose/EzReview" target="_blank" class="github-link">
                     <span>🔗</span> Github - EzReview
                 </a>
             </div>
             <div class="about-section" style="margin-top: 24px;">
-                <p><strong>友情链接：</strong></p>
-                <p style="margin-bottom: 12px;">Planner Pro - 规划师</p>
+                <p><strong data-i18n="friend_links">Try also:</strong></p>
+                <p style="margin-bottom: 12px;" data-i18n="planner_pro">Planner Pro - 计划师</p>
                 <a href="https://ib-plan-making.netlify.app/" target="_blank" class="link-btn"
                     style="text-decoration: none; width: auto; display: inline-block; padding: 10px 30px;">
-                    访问
+                    <span data-i18n="visit">Visit</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- 管理模态框 -->
     <div id="subjectManagerModal" class="manager-modal hidden">
         <div class="manager-content">
             <div class="manager-header">
-                <h3>📚 管理学科</h3>
+                <h3>📚 <span data-i18n="manage_subjects">Manage Subjects</span></h3>
                 <button class="close-btn" id="closeSubjectManager">×</button>
             </div>
             <div class="item-list" id="subjectList"></div>
             <div class="add-section">
                 <div class="add-input-group">
-                    <input type="text" id="newSubjectName" placeholder="新学科名称">
-                    <button id="addSubjectBtn">添加</button>
+                    <input type="text" id="newSubjectName" placeholder="New subject name">
+                    <button id="addSubjectBtn" data-i18n="add">Add</button>
                 </div>
             </div>
         </div>
@@ -1977,120 +1878,291 @@
     <div id="groupManagerModal" class="manager-modal hidden">
         <div class="manager-content">
             <div class="manager-header">
-                <h3>📋 管理分组</h3>
+                <h3>📋 <span data-i18n="manage_groups">Manage Groups</span></h3>
                 <button class="close-btn" id="closeGroupManager">×</button>
             </div>
             <div class="item-list" id="groupList"></div>
             <div class="add-section">
                 <div class="add-input-group">
-                    <input type="text" id="newGroupName" placeholder="新分组名称">
-                    <button id="addGroupBtn">添加</button>
+                    <input type="text" id="newGroupName" placeholder="New group name">
+                    <button id="addGroupBtn" data-i18n="add">Add</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 重命名/删除弹窗 -->
     <div id="renameSubjectModal" class="modal hidden">
         <div class="modal-content">
-            <h3>重命名学科</h3>
+            <h3 data-i18n="rename_subject">Rename Subject</h3>
             <input type="text" id="renameSubjectInput" class="modal-input">
             <div class="modal-actions">
-                <button class="cancel-btn" id="cancelRenameSubject">取消</button>
-                <button class="save-btn" id="saveRenameSubject">保存</button>
+                <button class="cancel-btn" id="cancelRenameSubject" data-i18n="cancel">Cancel</button>
+                <button class="save-btn" id="saveRenameSubject" data-i18n="save">Save</button>
             </div>
         </div>
     </div>
 
     <div id="deleteSubjectModal" class="modal hidden">
         <div class="modal-content">
-            <h3>删除学科</h3>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">确定要删除该学科吗？所有卡片将永久丢失。</p>
+            <h3 data-i18n="delete_subject">Delete Subject</h3>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);" data-i18n="delete_subject_confirm">Are you
+                sure? All cards will be permanently lost.</p>
             <div class="modal-actions">
-                <button class="cancel-btn" id="cancelDeleteSubject">取消</button>
-                <button class="save-btn" style="background: var(--danger-color);" id="confirmDeleteSubject">删除</button>
+                <button class="cancel-btn" id="cancelDeleteSubject" data-i18n="cancel">Cancel</button>
+                <button class="save-btn" style="background: var(--danger-color);" id="confirmDeleteSubject"
+                    data-i18n="delete">Delete</button>
             </div>
         </div>
     </div>
 
     <div id="renameGroupModal" class="modal hidden">
         <div class="modal-content">
-            <h3>重命名分组</h3>
+            <h3 data-i18n="rename_group">Rename Group</h3>
             <input type="text" id="renameGroupInput" class="modal-input">
             <div class="modal-actions">
-                <button class="cancel-btn" id="cancelRenameGroup">取消</button>
-                <button class="save-btn" id="saveRenameGroup">保存</button>
+                <button class="cancel-btn" id="cancelRenameGroup" data-i18n="cancel">Cancel</button>
+                <button class="save-btn" id="saveRenameGroup" data-i18n="save">Save</button>
             </div>
         </div>
     </div>
 
     <div id="deleteGroupModal" class="modal hidden">
         <div class="modal-content">
-            <h3>删除分组</h3>
-            <p style="margin-bottom: 20px; color: var(--text-secondary);">确定要删除该分组吗？该分组下的卡片将移至默认分组。</p>
+            <h3 data-i18n="delete_group">Delete Group</h3>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);" data-i18n="delete_group_confirm">Cards in this
+                group will be moved to Default.</p>
             <div class="modal-actions">
-                <button class="cancel-btn" id="cancelDeleteGroup">取消</button>
-                <button class="save-btn" style="background: var(--danger-color);" id="confirmDeleteGroup">删除</button>
+                <button class="cancel-btn" id="cancelDeleteGroup" data-i18n="cancel">Cancel</button>
+                <button class="save-btn" style="background: var(--danger-color);" id="confirmDeleteGroup"
+                    data-i18n="delete">Delete</button>
             </div>
         </div>
     </div>
 
     <script>
         (function () {
-            // ========== 数据定义 ==========
-            let subjects = ['biology', 'history', 'math', 'chemistry', 'physics'];
-
-            let subjectNames = {
-                biology: '生物',
-                history: '历史',
-                math: '数学',
-                chemistry: '化学',
-                physics: '物理'
+            const translations = {
+                en: {
+                    review: 'Review',
+                    dictionary: 'Dictionary',
+                    settings: 'Settings',
+                    about: 'About',
+                    select_cards: '📋 Select Cards to Review',
+                    select_all: 'Select All',
+                    clear_all: 'Clear All',
+                    all_subjects: 'All Subjects',
+                    all_groups: 'All Groups',
+                    selected_cards: '0 cards selected',
+                    start_review: 'Start Review (0)',
+                    back_to_selection: 'Back to Selection',
+                    total_cards: 'Total 0 cards',
+                    tap_to_flip: 'Tap to flip',
+                    dont_know: "Don't Know",
+                    know: 'Know',
+                    progress: 'Card 1 / 0',
+                    congratulations: '🎉 Congratulations!',
+                    completion_stats: 'You completed the review with 0% accuracy',
+                    reselect: 'Reselect',
+                    manage_subjects: 'Manage Subjects',
+                    manage_groups: 'Manage Groups',
+                    add_card: 'Add Card',
+                    question: 'Question',
+                    answer: 'Answer',
+                    group: 'Group',
+                    annotation: 'Note',
+                    save: 'Save',
+                    cancel: 'Cancel',
+                    appearance: 'Appearance',
+                    dark_mode: 'Dark/Light Mode',
+                    dark_mode_desc: 'Toggle dark/light theme',
+                    light: 'Light',
+                    dark: 'Dark',
+                    theme_color: 'Theme Color',
+                    theme_color_desc: 'Custom accent color',
+                    animation: 'Animation',
+                    card_animation: 'Card Animation',
+                    animation_desc: 'Choose animation style',
+                    soft: '🌸 Soft',
+                    standard: '🎯 Standard',
+                    playful: '🎪 Playful',
+                    language: 'Language',
+                    language_select: 'Interface Language',
+                    language_desc: 'Choose display language',
+                    statistics: 'Statistics',
+                    total_cards: 'Total Cards',
+                    total_cards_desc: 'Total cards across all subjects',
+                    total_subjects: 'Subjects',
+                    total_subjects_desc: 'Number of subjects',
+                    about_us: 'About Us:',
+                    about_text: 'EzReview is an open-source flashcard tool to help you memorize knowledge efficiently.',
+                    about_text2: "It's completely free. Contributions and suggestions are welcome!",
+                    friend_links: 'Try also:',
+                    planner_pro: 'Planner Pro - 计划师',
+                    visit: 'Visit',
+                    rename_subject: 'Rename Subject',
+                    delete_subject: 'Delete Subject',
+                    delete_subject_confirm: 'Are you sure? All cards will be permanently lost.',
+                    rename_group: 'Rename Group',
+                    delete_group: 'Delete Group',
+                    delete_group_confirm: 'Cards in this group will be moved to Default.',
+                    add: 'Add',
+                    delete: 'Delete',
+                    edit: 'Edit',
+                    export: 'Export',
+                    import: 'Import',
+                    export_success: 'Export successful!',
+                    export_error: 'Export failed!',
+                    import_success: 'Import successful! Added {count} cards.',
+                    import_error: 'Import failed! Please check the file format.',
+                    invalid_file: 'Invalid file format. Please select .xlsx or .csv file.',
+                    import_confirm: 'Import will add cards to all subjects. Continue?',
+                    notification: 'Notification',
+                    ok: 'OK',
+                    confirm_export: 'Export',
+                    confirm_import: 'Import',
+                    export_filename: 'Filename',
+                    export_hint: 'Export all cards from all subjects to Excel file.',
+                    import_hint: 'Import cards from Excel file. Format: Subject, Group, Question, Answer, Note.',
+                    select_file: 'Choose File',
+                    no_file: 'No file selected',
+                    file_selected: 'File selected:'
+                },
+                zh: {
+                    review: '复习卡',
+                    dictionary: '词典',
+                    settings: '设置',
+                    about: '关于我们',
+                    select_cards: '📋 选择要复习的卡片',
+                    select_all: '全选',
+                    clear_all: '清空',
+                    all_subjects: '所有学科',
+                    all_groups: '所有分组',
+                    selected_cards: '已选择 0 张卡片',
+                    start_review: '开始复习 (0)',
+                    back_to_selection: '返回选择',
+                    total_cards: '共 0 张',
+                    tap_to_flip: '点按翻面',
+                    dont_know: '不知道',
+                    know: '知道',
+                    progress: '第 1 / 0 张',
+                    congratulations: '🎉 恭喜！',
+                    completion_stats: '你完成了本轮复习，正确率 0%',
+                    reselect: '重新选择',
+                    manage_subjects: '管理学科',
+                    manage_groups: '管理分组',
+                    add_card: '添加卡片',
+                    question: '问题',
+                    answer: '答案',
+                    group: '分组',
+                    annotation: '注释',
+                    save: '保存',
+                    cancel: '取消',
+                    appearance: '外观设置',
+                    dark_mode: '深色/浅色模式',
+                    dark_mode_desc: '切换界面明暗主题',
+                    light: '浅色',
+                    dark: '深色',
+                    theme_color: '主题颜色',
+                    theme_color_desc: '自定义强调色',
+                    animation: '动画风格',
+                    card_animation: '卡片动画',
+                    animation_desc: '选择喜欢的动画效果',
+                    soft: '🌸 柔和',
+                    standard: '🎯 标准',
+                    playful: '🎪 活泼',
+                    language: '语言',
+                    language_select: '界面语言',
+                    language_desc: '选择显示语言',
+                    statistics: '数据统计',
+                    total_cards: '总卡片数量',
+                    total_cards_desc: '所有学科卡片总数',
+                    total_subjects: '学科数量',
+                    total_subjects_desc: '已创建的学科数',
+                    about_us: '关于我们：',
+                    about_text: '易学是一个开源的复习工具，帮助你高效记忆知识卡片。',
+                    about_text2: '项目完全免费，欢迎贡献代码或提出建议。',
+                    friend_links: '友情链接：',
+                    planner_pro: 'Planner Pro - 计划师',
+                    visit: '访问',
+                    rename_subject: '重命名学科',
+                    delete_subject: '删除学科',
+                    delete_subject_confirm: '确定要删除该学科吗？所有卡片将永久丢失。',
+                    rename_group: '重命名分组',
+                    delete_group: '删除分组',
+                    delete_group_confirm: '该分组下的卡片将移至默认分组。',
+                    add: '添加',
+                    delete: '删除',
+                    edit: '编辑',
+                    export: '导出',
+                    import: '导入',
+                    export_success: '导出成功！',
+                    export_error: '导出失败！',
+                    import_success: '导入成功！共添加 {count} 张卡片。',
+                    import_error: '导入失败！请检查文件格式。',
+                    invalid_file: '无效的文件格式，请选择 .xlsx 或 .csv 文件。',
+                    import_confirm: '导入将会添加卡片到各个学科，是否继续？',
+                    notification: '提示',
+                    ok: '确定',
+                    confirm_export: '导出',
+                    confirm_import: '导入',
+                    export_filename: '文件名',
+                    export_hint: '导出所有学科的所有卡片到 Excel 文件。',
+                    import_hint: '从 Excel 文件导入卡片。格式：学科、分组、问题、答案、注释。',
+                    select_file: '选择文件',
+                    no_file: '未选择文件',
+                    file_selected: '已选择文件：'
+                }
             };
 
-            // 卡片数据
+            let subjects = ['biology', 'history', 'math', 'chemistry', 'physics'];
+            let subjectNames = {
+                biology: 'Biology',
+                history: 'History',
+                math: 'Math',
+                chemistry: 'Chemistry',
+                physics: 'Physics'
+            };
+
             let cardData = {
                 biology: [
-                    { question: '细胞核的功能？', answer: '储存DNA，控制细胞活动', annotation: '细胞核是遗传信息库。', group: '默认分组' },
-                    { question: '光合作用原料？', answer: 'CO₂ + H₂O', annotation: '光下在叶绿体生成有机物', group: '重点' },
-                    { question: '人体最大器官？', answer: '皮肤', annotation: '约1.7平方米', group: '默认分组' }
+                    { question: 'Function of nucleus?', answer: 'Stores DNA, controls cell activities', annotation: 'Nucleus is the control center of the cell.', group: 'Default' },
+                    { question: 'Photosynthesis reactants?', answer: 'CO₂ + H₂O', annotation: 'Produces glucose and oxygen in light', group: 'Important' },
+                    { question: 'Largest organ in human body?', answer: 'Skin', annotation: 'About 1.7 square meters', group: 'Default' }
                 ],
                 history: [
-                    { question: '秦统一时间？', answer: '公元前221年', annotation: '秦始皇建立中央集权', group: '重要事件' },
-                    { question: '文艺复兴发源地？', answer: '意大利', annotation: '14–16世纪', group: '默认分组' }
+                    { question: 'When was Qin unified?', answer: '221 BC', annotation: 'Qin Shi Huang established centralization', group: 'Key Events' },
+                    { question: 'Birthplace of Renaissance?', answer: 'Italy', annotation: '14th-16th century', group: 'Default' }
                 ],
                 math: [
-                    { question: '勾股定理', answer: 'a²+b²=c²', annotation: '直角三角形', group: '公式' },
-                    { question: '圆的面积', answer: 'πr²', annotation: 'r为半径', group: '公式' }
+                    { question: 'Pythagorean theorem', answer: 'a²+b²=c²', annotation: 'Right triangle', group: 'Formulas' },
+                    { question: 'Area of circle', answer: 'πr²', annotation: 'r is radius', group: 'Formulas' }
                 ],
                 chemistry: [
-                    { question: '水的化学式', answer: 'H₂O', annotation: '由一个氧和两个氢组成', group: '基础' },
-                    { question: '氧气化学式', answer: 'O₂', annotation: '支持燃烧', group: '基础' }
+                    { question: 'Chemical formula of water', answer: 'H₂O', annotation: 'One oxygen and two hydrogen atoms', group: 'Basics' },
+                    { question: 'Chemical formula of oxygen', answer: 'O₂', annotation: 'Supports combustion', group: 'Basics' }
                 ],
                 physics: [
-                    { question: '牛顿第一定律', answer: '惯性定律', annotation: '任何物体保持静止或匀速直线运动', group: '定律' },
-                    { question: '光的传播', answer: '直线传播', annotation: '同种均匀介质', group: '默认分组' }
+                    { question: 'Newton\'s first law', answer: 'Law of inertia', annotation: 'Objects maintain state of motion', group: 'Laws' },
+                    { question: 'Light propagation', answer: 'Straight line', annotation: 'In homogeneous medium', group: 'Default' }
                 ]
             };
 
-            // 分组数据
             let groupData = {
-                biology: ['默认分组', '重点', '难点'],
-                history: ['默认分组', '重要事件'],
-                math: ['默认分组', '公式'],
-                chemistry: ['默认分组', '基础'],
-                physics: ['默认分组', '定律']
+                biology: ['Default', 'Important', 'Difficult'],
+                history: ['Default', 'Key Events'],
+                math: ['Default', 'Formulas'],
+                chemistry: ['Default', 'Basics'],
+                physics: ['Default', 'Laws']
             };
 
-            // ========== 状态变量 ==========
             let currentPage = 'review';
             let currentSubject = 'biology';
-            let currentGroup = '全部';
+            let currentGroup = 'All';
             let subjectToEdit = null;
             let groupToEdit = null;
             let isAnimating = false;
+            let currentLanguage = 'en';
 
-            // 复习选择相关
             let selectedCards = [];
             let reviewCards = [];
             let correctCount = 0;
@@ -2099,7 +2171,9 @@
             let currentIndex = 0;
             let isFlipped = false;
 
-            // ========== DOM 元素 ==========
+            let selectedFile = null;
+
+            // DOM 元素
             const reviewPage = document.getElementById('reviewPage');
             const dictionaryPage = document.getElementById('dictionaryPage');
             const settingsPage = document.getElementById('settingsPage');
@@ -2109,32 +2183,52 @@
             const aboutBtn = document.getElementById('aboutBtn');
             const aboutModal = document.getElementById('aboutModal');
             const closeAboutModal = document.getElementById('closeAboutModal');
+            const appLogo = document.getElementById('appLogo');
 
-            // 词典页面元素
+            const exportModal = document.getElementById('exportModal');
+            const closeExportModal = document.getElementById('closeExportModal');
+            const cancelExportBtn = document.getElementById('cancelExportBtn');
+            const confirmExportBtn = document.getElementById('confirmExportBtn');
+            const exportFilename = document.getElementById('exportFilename');
+
+            const importModal = document.getElementById('importModal');
+            const closeImportModal = document.getElementById('closeImportModal');
+            const cancelImportBtn = document.getElementById('cancelImportBtn');
+            const confirmImportBtn = document.getElementById('confirmImportBtn');
+            const selectFileBtn = document.getElementById('selectFileBtn');
+            const importFileInput = document.getElementById('importFileInput');
+            const selectedFileName = document.getElementById('selectedFileName');
+
+            const messageModal = document.getElementById('messageModal');
+            const closeMessageModal = document.getElementById('closeMessageModal');
+            const closeMessageBtn = document.getElementById('closeMessageBtn');
+            const messageTitle = document.getElementById('messageTitle');
+            const messageContent = document.getElementById('messageContent');
+
             const dictSubjectTabs = document.getElementById('dictSubjectTabs');
-            const dictCount = document.getElementById('dictCount');
             const dictTitle = document.getElementById('dictTitle');
             const groupTabs = document.getElementById('groupTabs');
             const dictionaryGrid = document.getElementById('dictionaryGrid');
             const cardGroupSelect = document.getElementById('cardGroup');
             const addCardForm = document.getElementById('addCardForm');
 
-            // 设置页面元素
             const totalCardsCount = document.getElementById('totalCardsCount');
             const subjectsCount = document.getElementById('subjectsCount');
             const themeToggle = document.getElementById('themeToggle');
             const themeColor = document.getElementById('themeColor');
             const colorValue = document.getElementById('colorValue');
             const animationStyle = document.getElementById('animationStyle');
+            const languageSelector = document.getElementById('languageSelector');
 
-            // 按钮
             const manageSubjectBtn = document.getElementById('manageSubjectBtn');
             const manageGroupBtn = document.getElementById('manageGroupBtn');
             const showAddCardBtn = document.getElementById('showAddCardBtn');
             const cancelAddCard = document.getElementById('cancelAddCard');
             const saveCard = document.getElementById('saveCard');
 
-            // 复习选择界面元素
+            const exportAllBtn = document.getElementById('exportAllBtn');
+            const importAllBtn = document.getElementById('importAllBtn');
+
             const cardSelection = document.getElementById('cardSelection');
             const reviewSession = document.getElementById('reviewSession');
             const cardsGrid = document.getElementById('cardsGrid');
@@ -2160,7 +2254,6 @@
             const completionStats = document.getElementById('completionStats');
             const restartReviewBtn = document.getElementById('restartReviewBtn');
 
-            // 模态框
             const subjectManagerModal = document.getElementById('subjectManagerModal');
             const closeSubjectManager = document.getElementById('closeSubjectManager');
             const subjectList = document.getElementById('subjectList');
@@ -2177,44 +2270,233 @@
             const renameSubjectInput = document.getElementById('renameSubjectInput');
             const cancelRenameSubject = document.getElementById('cancelRenameSubject');
             const saveRenameSubject = document.getElementById('saveRenameSubject');
-
             const deleteSubjectModal = document.getElementById('deleteSubjectModal');
             const cancelDeleteSubject = document.getElementById('cancelDeleteSubject');
             const confirmDeleteSubject = document.getElementById('confirmDeleteSubject');
-
             const renameGroupModal = document.getElementById('renameGroupModal');
             const renameGroupInput = document.getElementById('renameGroupInput');
             const cancelRenameGroup = document.getElementById('cancelRenameGroup');
             const saveRenameGroup = document.getElementById('saveRenameGroup');
-
             const deleteGroupModal = document.getElementById('deleteGroupModal');
             const cancelDeleteGroup = document.getElementById('cancelDeleteGroup');
             const confirmDeleteGroup = document.getElementById('confirmDeleteGroup');
 
-            // ========== 关于我们功能 ==========
-            aboutBtn.addEventListener('click', () => {
-                aboutModal.classList.remove('hidden');
-            });
+            function showMessage(titleKey, message) {
+                messageTitle.innerHTML = translations[currentLanguage][titleKey] || titleKey;
+                messageContent.innerHTML = message;
+                messageModal.classList.remove('hidden');
+            }
 
-            closeAboutModal.addEventListener('click', () => {
-                aboutModal.classList.add('hidden');
-            });
+            function closeMessage() {
+                messageModal.classList.add('hidden');
+            }
 
-            // 点击模态框背景关闭
-            window.addEventListener('click', (e) => {
-                if (e.target === aboutModal) {
-                    aboutModal.classList.add('hidden');
+            // ========== 导入导出功能 ==========
+            function exportAllToExcel() {
+                try {
+                    if (typeof XLSX === 'undefined') {
+                        showMessage('notification', translations[currentLanguage].export_error + ' Library not loaded.');
+                        return;
+                    }
+
+                    let filename = exportFilename.value.trim();
+                    if (!filename) filename = 'EzReview_All_Cards';
+
+                    let allCardsData = [];
+
+                    for (let subj of subjects) {
+                        const subjectCards = cardData[subj] || [];
+                        subjectCards.forEach(card => {
+                            allCardsData.push({
+                                'Subject': subjectNames[subj],
+                                'Group': card.group || 'Default',
+                                'Question': card.question || '',
+                                'Answer': card.answer || '',
+                                'Note': card.annotation || ''
+                            });
+                        });
+                    }
+
+                    if (allCardsData.length === 0) {
+                        showMessage('notification', 'No cards to export.');
+                        exportModal.classList.add('hidden');
+                        return;
+                    }
+
+                    const worksheet = XLSX.utils.json_to_sheet(allCardsData);
+                    worksheet['!cols'] = [{ wch: 20 }, { wch: 15 }, { wch: 40 }, { wch: 30 }, { wch: 40 }];
+                    const workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, worksheet, 'All_Cards');
+
+                    XLSX.writeFile(workbook, `${filename}.xlsx`);
+                    showMessage('notification', translations[currentLanguage].export_success);
+                    exportModal.classList.add('hidden');
+                } catch (error) {
+                    console.error('Export error:', error);
+                    showMessage('notification', translations[currentLanguage].export_error + ' ' + (error.message || ''));
                 }
-            });
+            }
 
-            // ========== 工具函数 ==========
+            function importAllFromExcel() {
+                if (!selectedFile) {
+                    showMessage('notification', 'Please select a file first.');
+                    return;
+                }
+
+                const fileType = selectedFile.name.split('.').pop().toLowerCase();
+                if (!['xlsx', 'xls', 'csv'].includes(fileType)) {
+                    showMessage('notification', translations[currentLanguage].invalid_file);
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        let totalAdded = 0;
+                        const addedBySubject = {};
+
+                        for (let sheet of workbook.SheetNames) {
+                            const worksheet = workbook.Sheets[sheet];
+                            const rows = XLSX.utils.sheet_to_json(worksheet);
+
+                            if (rows.length === 0) continue;
+
+                            for (let row of rows) {
+                                let subject = row['Subject'] || row['学科'] || '';
+                                const group = row['Group'] || row['分组'] || 'Default';
+                                const question = row['Question'] || row['问题'] || '';
+                                const answer = row['Answer'] || row['答案'] || '';
+                                const note = row['Note'] || row['注释'] || row['Annotation'] || '';
+
+                                if (!question || !answer) continue;
+
+                                let matchedSubject = null;
+                                if (subject) {
+                                    for (let subj of subjects) {
+                                        if (subjectNames[subj] === subject ||
+                                            subjectNames[subj].toLowerCase() === subject.toLowerCase()) {
+                                            matchedSubject = subj;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!matchedSubject && sheet !== 'All_Cards') {
+                                    for (let subj of subjects) {
+                                        if (subjectNames[subj] === sheet ||
+                                            subjectNames[subj].toLowerCase() === sheet.toLowerCase()) {
+                                            matchedSubject = subj;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!matchedSubject && subjects.includes(subject.toLowerCase())) {
+                                    matchedSubject = subject.toLowerCase();
+                                }
+
+                                if (matchedSubject) {
+                                    cardData[matchedSubject].push({
+                                        question: String(question),
+                                        answer: String(answer),
+                                        annotation: String(note) || (currentLanguage === 'en' ? 'No notes' : '无注释'),
+                                        group: String(group)
+                                    });
+                                    totalAdded++;
+                                    addedBySubject[matchedSubject] = (addedBySubject[matchedSubject] || 0) + 1;
+                                }
+                            }
+                        }
+
+                        if (totalAdded === 0) {
+                            showMessage('notification', 'No valid cards found in the file.');
+                            importModal.classList.add('hidden');
+                            return;
+                        }
+
+                        renderDictionary();
+                        updateTotalCardsCount();
+                        if (currentPage === 'review') {
+                            renderCardSelection();
+                        }
+
+                        let addedMsg = Object.entries(addedBySubject).map(([subj, count]) => `${subjectNames[subj]} (${count})`).join(', ');
+                        showMessage('notification', translations[currentLanguage].import_success.replace('{count}', totalAdded) + (addedMsg ? ' ' + addedMsg : ''));
+                        importModal.classList.add('hidden');
+                        selectedFile = null;
+                        selectedFileName.innerText = translations[currentLanguage].no_file;
+                        importFileInput.value = '';
+                    } catch (error) {
+                        console.error('Import error:', error);
+                        showMessage('notification', translations[currentLanguage].import_error + ' ' + (error.message || ''));
+                    }
+                };
+                reader.onerror = function () {
+                    showMessage('notification', 'File read error');
+                };
+                reader.readAsArrayBuffer(selectedFile);
+            }
+
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                if (lang === 'zh') {
+                    appLogo.innerHTML = '📚 易学';
+                } else {
+                    appLogo.innerHTML = '📚 EzReview';
+                }
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        el.textContent = translations[lang][key];
+                    }
+                });
+                renderDictSubjectTabs();
+                renderGroupTabs();
+                renderDictionary();
+                renderCardSelection();
+                updateCounters();
+                updateFilterOptions();
+            }
+
+            function updateFilterOptions() {
+                let subjectOptions = `<option value="all">${translations[currentLanguage].all_subjects}</option>`;
+                subjects.forEach(subj => {
+                    subjectOptions += `<option value="${subj}">${subjectNames[subj]}</option>`;
+                });
+                filterSubject.innerHTML = subjectOptions;
+                updateGroupFilter();
+            }
+
+            function updateGroupFilter() {
+                let subject = filterSubject.value;
+                let groups = new Set();
+                if (subject === 'all') {
+                    subjects.forEach(subj => {
+                        (groupData[subj] || []).forEach(g => groups.add(g));
+                    });
+                } else {
+                    (groupData[subject] || []).forEach(g => groups.add(g));
+                }
+                let groupOptions = `<option value="all">${translations[currentLanguage].all_groups}</option>`;
+                groups.forEach(g => {
+                    groupOptions += `<option value="${g}">${g}</option>`;
+                });
+                filterGroup.innerHTML = groupOptions;
+            }
+
             function getSubjectName(subj) {
                 return subjectNames[subj] || subj;
             }
 
+            function getGroupNames() {
+                return groupData[currentSubject] || ['Default'];
+            }
+
             function getCurrentCards() {
                 let cards = cardData[currentSubject] || [];
-                if (currentGroup === '全部') {
+                if (currentGroup === 'All' || currentGroup === '全部') {
                     return cards;
                 } else {
                     return cards.filter(c => c.group === currentGroup);
@@ -2230,38 +2512,35 @@
                 if (subjectsCount) subjectsCount.innerText = subjects.length;
             }
 
-            // ========== 词典页面渲染函数 ==========
             function renderDictSubjectTabs() {
                 let html = '';
                 subjects.forEach(subj => {
                     let active = subj === currentSubject ? 'active' : '';
-                    html += `<button class="subject-tab ${active}" data-subject="${subj}">${getSubjectName(subj)}</button>`;
+                    html += `<button class="subject-tab ${active}" data-subject="${subj}">${subjectNames[subj]}</button>`;
                 });
                 dictSubjectTabs.innerHTML = html;
-
                 document.querySelectorAll('#dictSubjectTabs .subject-tab').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         let newSubj = e.target.dataset.subject;
                         if (newSubj === currentSubject) return;
                         currentSubject = newSubj;
-                        currentGroup = '全部';
+                        currentGroup = 'All';
                         renderDictSubjectTabs();
                         renderGroupTabs();
                         renderDictionary();
-                        updateDictCounters();
+                        updateDictTitle();
                     });
                 });
             }
 
             function renderGroupTabs() {
-                let groups = ['全部', ...(groupData[currentSubject] || ['默认分组'])];
+                let groups = ['All', ...getGroupNames()];
                 let html = '';
                 groups.forEach(group => {
                     let active = group === currentGroup ? 'active' : '';
                     html += `<button class="group-tab ${active}" data-group="${group}">${group}</button>`;
                 });
                 groupTabs.innerHTML = html;
-
                 document.querySelectorAll('.group-tab').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         let newGroup = e.target.dataset.group;
@@ -2271,116 +2550,75 @@
                         renderDictionary();
                     });
                 });
-
-                // 更新添加卡片的group下拉框
                 if (cardGroupSelect) {
                     let options = '';
-                    (groupData[currentSubject] || ['默认分组']).forEach(group => {
+                    getGroupNames().forEach(group => {
                         options += `<option value="${group}">${group}</option>`;
                     });
                     cardGroupSelect.innerHTML = options;
                 }
             }
 
-            function updateDictCounters() {
-                let total = cardData[currentSubject]?.length || 0;
-                dictCount.innerText = `${getSubjectName(currentSubject)} ${total}个知识点`;
-                dictTitle.innerText = `词典 · ${getSubjectName(currentSubject)}`;
+            function updateDictTitle() {
+                dictTitle.innerText = (currentLanguage === 'en' ? 'Dictionary · ' : '词典 · ') + subjectNames[currentSubject];
             }
 
             function renderDictionary() {
                 let cards = getCurrentCards();
                 let html = '';
-
                 if (cards.length === 0) {
-                    html = `
-                        <div class="empty-state">
-                            <div>📭 还没有任何知识卡片</div>
-                            <button onclick="document.getElementById('showAddCardBtn').click()">去创建知识卡片</button>
-                        </div>
-                    `;
+                    html = `<div class="empty-state"><div>📭 ${currentLanguage === 'en' ? 'No cards yet' : '还没有任何知识卡片'}</div><button onclick="document.getElementById('showAddCardBtn').click()">${currentLanguage === 'en' ? 'Create a card' : '去创建知识卡片'}</button></div>`;
                 } else {
                     cards.forEach((card, index) => {
-                        html += `
-                            <div class="dict-card" data-subject="${currentSubject}" data-index="${index}">
-                                <button class="delete-btn" onclick="deleteCard('${currentSubject}', ${index})">×</button>
-                                <span class="dict-group-badge">${card.group}</span>
-                                <div class="dict-question">${index + 1}. ${card.question}</div>
-                                <div class="dict-answer">✅ ${card.answer}</div>
-                                <div class="dict-note">📘 ${card.annotation}</div>
-                            </div>
-                        `;
+                        html += `<div class="dict-card" data-subject="${currentSubject}" data-index="${index}"><button class="delete-btn" onclick="deleteCard('${currentSubject}', ${index})">×</button><span class="dict-group-badge">${card.group}</span><div class="dict-question">${index + 1}. ${card.question}</div><div class="dict-answer">✅ ${card.answer}</div><div class="dict-note">📘 ${card.annotation}</div></div>`;
                     });
                 }
-
                 dictionaryGrid.innerHTML = html;
-                updateDictCounters();
+                updateDictTitle();
             }
 
-            // 删除卡片
             window.deleteCard = function (subject, index) {
                 if (subject === currentSubject) {
                     cardData[subject].splice(index, 1);
                     requestAnimationFrame(() => {
                         renderDictionary();
                         updateTotalCardsCount();
-                        if (currentPage === 'review') {
-                            renderCardSelection();
-                        }
+                        if (currentPage === 'review') renderCardSelection();
                     });
                 }
             };
 
-            // ========== 复习选择界面 ==========
             function renderCardSelection() {
                 let subjectFilter = filterSubject.value;
                 let groupFilter = filterGroup.value;
-
                 let allCards = [];
                 subjects.forEach(subj => {
                     (cardData[subj] || []).forEach((card, idx) => {
                         if (subjectFilter === 'all' || subj === subjectFilter) {
                             if (groupFilter === 'all' || card.group === groupFilter) {
-                                allCards.push({
-                                    subject: subj,
-                                    subjectName: subjectNames[subj],
-                                    index: idx,
-                                    ...card
-                                });
+                                allCards.push({ subject: subj, subjectName: subjectNames[subj], index: idx, ...card });
                             }
                         }
                     });
                 });
-
                 let html = '';
                 allCards.forEach((card, idx) => {
                     let isSelected = selectedCards.some(s => s.subject === card.subject && s.index === card.index);
-                    html += `
-                        <div class="selectable-card ${isSelected ? 'selected' : ''}" data-subject="${card.subject}" data-index="${card.index}">
-                            <div class="card-checkbox"></div>
-                            <div class="card-subject">${card.subjectName}</div>
-                            <div class="card-question">${card.question}</div>
-                            <span class="card-group-badge">${card.group}</span>
-                        </div>
-                    `;
+                    html += `<div class="selectable-card ${isSelected ? 'selected' : ''}" data-subject="${card.subject}" data-index="${card.index}"><div class="card-checkbox"></div><div class="card-subject">${card.subjectName}</div><div class="card-question">${card.question}</div><span class="card-group-badge">${card.group}</span></div>`;
                 });
-
                 requestAnimationFrame(() => {
-                    cardsGrid.innerHTML = html || '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-secondary);">暂无卡片，请先去词典创建</div>';
-
+                    cardsGrid.innerHTML = html || `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-secondary);">${currentLanguage === 'en' ? 'No cards, please create in dictionary' : '暂无卡片，请先去词典创建'}</div>`;
                     document.querySelectorAll('.selectable-card').forEach(el => {
                         el.addEventListener('click', (e) => {
                             e.stopPropagation();
                             let subject = el.dataset.subject;
                             let index = parseInt(el.dataset.index);
                             let exists = selectedCards.some(s => s.subject === subject && s.index === index);
-
                             if (exists) {
                                 selectedCards = selectedCards.filter(s => !(s.subject === subject && s.index === index));
                             } else {
                                 selectedCards.push({ subject, index });
                             }
-
                             el.classList.toggle('selected');
                             updateSelectedCount();
                         });
@@ -2389,63 +2627,32 @@
             }
 
             function updateSelectedCount() {
-                selectedCount.innerText = `已选择 ${selectedCards.length} 张卡片`;
-                startReviewBtn.innerText = `开始复习 (${selectedCards.length})`;
+                let selectedText = currentLanguage === 'en' ? 'cards selected' : '张卡片';
+                selectedCount.innerText = `${selectedCards.length} ${selectedText}`;
+                startReviewBtn.innerText = `${translations[currentLanguage].start_review.replace('0', selectedCards.length)}`;
             }
 
-            function updateFilters() {
-                let subjectOptions = '<option value="all">所有学科</option>';
-                subjects.forEach(subj => {
-                    subjectOptions += `<option value="${subj}">${subjectNames[subj]}</option>`;
-                });
-                filterSubject.innerHTML = subjectOptions;
-                updateGroupFilter();
+            function updateCounters() {
+                updateTotalCardsCount();
             }
 
-            function updateGroupFilter() {
-                let subject = filterSubject.value;
-                let groups = new Set();
-
-                if (subject === 'all') {
-                    subjects.forEach(subj => {
-                        (groupData[subj] || []).forEach(g => groups.add(g));
-                    });
-                } else {
-                    (groupData[subject] || []).forEach(g => groups.add(g));
-                }
-
-                let groupOptions = '<option value="all">所有分组</option>';
-                groups.forEach(g => {
-                    groupOptions += `<option value="${g}">${g}</option>`;
-                });
-                filterGroup.innerHTML = groupOptions;
-            }
-
-            // ========== 复习功能 ==========
             function startReview() {
                 if (selectedCards.length === 0) {
-                    alert('请至少选择一张卡片');
+                    showMessage('notification', currentLanguage === 'en' ? 'Please select at least one card' : '请至少选择一张卡片');
                     return;
                 }
-
                 reviewCards = [];
                 selectedCards.forEach(s => {
                     let card = cardData[s.subject][s.index];
-                    reviewCards.push({
-                        subject: s.subject,
-                        subjectName: subjectNames[s.subject],
-                        ...card
-                    });
+                    reviewCards.push({ subject: s.subject, subjectName: subjectNames[s.subject], ...card });
                 });
-
                 currentIndex = 0;
                 correctCount = 0;
                 totalReviewed = 0;
                 wrongCards = [];
                 isFlipped = false;
                 flipCard.classList.remove('flipped');
-
-                reviewTotalCount.innerText = `共 ${reviewCards.length} 张`;
+                reviewTotalCount.innerText = (currentLanguage === 'en' ? `Total ${reviewCards.length} cards` : `共 ${reviewCards.length} 张`);
                 cardSelection.classList.add('hidden');
                 reviewSession.classList.remove('hidden');
                 updateReviewDisplay();
@@ -2456,13 +2663,11 @@
                     reviewMain.classList.add('hidden');
                     reviewComplete.classList.remove('hidden');
                     let rate = totalReviewed > 0 ? Math.round((correctCount / totalReviewed) * 100) : 0;
-                    completionStats.innerText = `你完成了本轮复习，正确率 ${rate}%`;
+                    completionStats.innerText = (currentLanguage === 'en' ? `You completed the review with ${rate}% accuracy` : `你完成了本轮复习，正确率 ${rate}%`);
                     return;
                 }
-
                 reviewMain.classList.remove('hidden');
                 reviewComplete.classList.add('hidden');
-
                 let card = reviewCards[currentIndex];
                 frontSubject.innerText = card.subjectName;
                 backSubject.innerText = card.subjectName;
@@ -2470,36 +2675,28 @@
                 backGroup.innerText = card.group;
                 frontQuestion.innerText = card.question;
                 backAnnotation.innerText = card.answer + '\n\n📌 ' + card.annotation;
-
-                reviewProgress.innerText = `第 ${currentIndex + 1} / ${reviewCards.length} 张`;
+                reviewProgress.innerText = (currentLanguage === 'en' ? `Card ${currentIndex + 1} / ${reviewCards.length}` : `第 ${currentIndex + 1} / ${reviewCards.length} 张`);
                 let rate = totalReviewed > 0 ? Math.round((correctCount / totalReviewed) * 100) : 0;
                 correctRate.innerText = rate + '%';
             }
 
             function handleKnown(known) {
                 if (reviewCards.length === 0) return;
-
                 totalReviewed++;
                 if (known) {
                     correctCount++;
                 } else {
                     wrongCards.push(reviewCards[currentIndex]);
                 }
-
                 reviewCards.splice(currentIndex, 1);
-
                 if (reviewCards.length > 0) {
-                    if (currentIndex >= reviewCards.length) {
-                        currentIndex = 0;
-                    }
+                    if (currentIndex >= reviewCards.length) currentIndex = 0;
                 }
-
                 if (reviewCards.length === 0 && wrongCards.length > 0) {
                     reviewCards = [...wrongCards];
                     wrongCards = [];
                     currentIndex = 0;
                 }
-
                 updateReviewDisplay();
             }
 
@@ -2509,574 +2706,93 @@
                 renderCardSelection();
             }
 
-            // ========== 滑动控制 ==========
+            // 导入导出模态框事件
+            exportAllBtn.addEventListener('click', () => {
+                exportModal.classList.remove('hidden');
+            });
+            importAllBtn.addEventListener('click', () => {
+                importModal.classList.remove('hidden');
+            });
+
+            closeExportModal.addEventListener('click', () => exportModal.classList.add('hidden'));
+            cancelExportBtn.addEventListener('click', () => exportModal.classList.add('hidden'));
+            confirmExportBtn.addEventListener('click', exportAllToExcel);
+
+            closeImportModal.addEventListener('click', () => importModal.classList.add('hidden'));
+            cancelImportBtn.addEventListener('click', () => importModal.classList.add('hidden'));
+            confirmImportBtn.addEventListener('click', importAllFromExcel);
+
+            selectFileBtn.addEventListener('click', () => importFileInput.click());
+            importFileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    selectedFile = e.target.files[0];
+                    selectedFileName.innerText = `${translations[currentLanguage].file_selected} ${selectedFile.name}`;
+                } else {
+                    selectedFile = null;
+                    selectedFileName.innerText = translations[currentLanguage].no_file;
+                }
+            });
+
+            closeMessageModal.addEventListener('click', closeMessage);
+            closeMessageBtn.addEventListener('click', closeMessage);
+
+            // 滑动控制 (保留原有功能)
             let startX = 0, currentX = 0, isDragging = false;
             const threshold = 60;
+            flipCard.addEventListener('touchstart', (e) => { if (isAnimating) return; startX = e.touches[0].clientX; isDragging = true; flipCard.classList.add('dragging'); flipCard.style.transition = 'none'; });
+            flipCard.addEventListener('touchmove', (e) => { if (!isDragging || isAnimating) return; e.preventDefault(); currentX = e.touches[0].clientX; let delta = currentX - startX; let rotate = delta * 0.05; flipCard.style.transform = `translateX(${delta}px) rotate(${rotate}deg)`; });
+            flipCard.addEventListener('touchend', () => { if (!isDragging || isAnimating) return; isDragging = false; flipCard.classList.remove('dragging'); let delta = currentX - startX; if (Math.abs(delta) > threshold) { isAnimating = true; if (delta > 0) { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; flipCard.style.transform = 'translateX(150%) rotate(10deg)'; if (isFlipped) flipCard.classList.remove('flipped'); isFlipped = false; setTimeout(() => { flipCard.style.transform = ''; flipCard.style.transition = 'none'; handleKnown(true); setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; isAnimating = false; }, 50); }, 300); } else { flipCard.style.transition = 'transform 0.2s ease'; flipCard.style.transform = ''; setTimeout(() => { flipCard.classList.add('flipped'); isFlipped = true; setTimeout(() => { flipCard.classList.remove('flipped'); isFlipped = false; setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; flipCard.style.transform = 'translateX(-150%) rotate(-10deg)'; setTimeout(() => { flipCard.style.transform = ''; flipCard.style.transition = 'none'; handleKnown(false); setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; isAnimating = false; }, 50); }, 300); }, 100); }, 2000); }, 200); } } else { flipCard.style.transform = ''; if (Math.abs(delta) < 10) { flipCard.classList.toggle('flipped'); isFlipped = flipCard.classList.contains('flipped'); } } });
+            flipCard.addEventListener('mousedown', (e) => { if (isAnimating) return; e.preventDefault(); startX = e.clientX; isDragging = true; flipCard.classList.add('dragging'); flipCard.style.transition = 'none'; });
+            window.addEventListener('mousemove', (e) => { if (!isDragging || isAnimating) return; e.preventDefault(); currentX = e.clientX; let delta = currentX - startX; let rotate = delta * 0.05; flipCard.style.transform = `translateX(${delta}px) rotate(${rotate}deg)`; });
+            window.addEventListener('mouseup', () => { if (!isDragging || isAnimating) return; isDragging = false; flipCard.classList.remove('dragging'); let delta = currentX - startX; if (Math.abs(delta) > threshold) { isAnimating = true; if (delta > 0) { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; flipCard.style.transform = 'translateX(150%) rotate(10deg)'; if (isFlipped) flipCard.classList.remove('flipped'); isFlipped = false; setTimeout(() => { flipCard.style.transform = ''; flipCard.style.transition = 'none'; handleKnown(true); setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; isAnimating = false; }, 50); }, 300); } else { flipCard.style.transition = 'transform 0.2s ease'; flipCard.style.transform = ''; setTimeout(() => { flipCard.classList.add('flipped'); isFlipped = true; setTimeout(() => { flipCard.classList.remove('flipped'); isFlipped = false; setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; flipCard.style.transform = 'translateX(-150%) rotate(-10deg)'; setTimeout(() => { flipCard.style.transform = ''; flipCard.style.transition = 'none'; handleKnown(false); setTimeout(() => { flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2,0.9,0.3,1.1)'; isAnimating = false; }, 50); }, 300); }, 100); }, 2000); }, 200); } } else { flipCard.style.transform = ''; if (Math.abs(delta) < 10) { flipCard.classList.toggle('flipped'); isFlipped = flipCard.classList.contains('flipped'); } } });
 
-            flipCard.addEventListener('touchstart', (e) => {
-                if (isAnimating) return;
-                startX = e.touches[0].clientX;
-                isDragging = true;
-                flipCard.classList.add('dragging');
-                flipCard.style.transition = 'none';
-            });
+            navReview.addEventListener('click', () => { currentPage = 'review'; navReview.classList.add('active'); navDictionary.classList.remove('active'); navSettings.classList.remove('active'); reviewPage.classList.remove('hidden'); dictionaryPage.classList.add('hidden'); settingsPage.classList.add('hidden'); requestAnimationFrame(() => { renderCardSelection(); updateSelectedCount(); }); });
+            navDictionary.addEventListener('click', () => { currentPage = 'dictionary'; navReview.classList.remove('active'); navDictionary.classList.add('active'); navSettings.classList.remove('active'); reviewPage.classList.add('hidden'); dictionaryPage.classList.remove('hidden'); settingsPage.classList.add('hidden'); requestAnimationFrame(() => { renderDictSubjectTabs(); renderGroupTabs(); renderDictionary(); }); });
+            navSettings.addEventListener('click', () => { currentPage = 'settings'; navReview.classList.remove('active'); navDictionary.classList.remove('active'); navSettings.classList.add('active'); reviewPage.classList.add('hidden'); dictionaryPage.classList.add('hidden'); settingsPage.classList.remove('hidden'); updateTotalCardsCount(); });
 
-            flipCard.addEventListener('touchmove', (e) => {
-                if (!isDragging || isAnimating) return;
-                e.preventDefault();
-                currentX = e.touches[0].clientX;
-                let delta = currentX - startX;
-                let rotate = delta * 0.05;
-                flipCard.style.transform = `translateX(${delta}px) rotate(${rotate}deg)`;
-            });
-
-            flipCard.addEventListener('touchend', () => {
-                if (!isDragging || isAnimating) return;
-                isDragging = false;
-                flipCard.classList.remove('dragging');
-
-                let delta = currentX - startX;
-
-                if (Math.abs(delta) > threshold) {
-                    isAnimating = true;
-
-                    if (delta > 0) {
-                        // 右滑 - 知道
-                        flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                        flipCard.style.transform = 'translateX(150%) rotate(10deg)';
-
-                        if (isFlipped) {
-                            flipCard.classList.remove('flipped');
-                            isFlipped = false;
-                        }
-
-                        setTimeout(() => {
-                            flipCard.style.transform = '';
-                            flipCard.style.transition = 'none';
-                            handleKnown(true);
-                            setTimeout(() => {
-                                flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                isAnimating = false;
-                            }, 50);
-                        }, 300);
-                    } else {
-                        // 左滑 - 不知道
-                        flipCard.style.transition = 'transform 0.2s ease';
-                        flipCard.style.transform = '';
-
-                        setTimeout(() => {
-                            flipCard.classList.add('flipped');
-                            isFlipped = true;
-
-                            setTimeout(() => {
-                                flipCard.classList.remove('flipped');
-                                isFlipped = false;
-
-                                setTimeout(() => {
-                                    flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                    flipCard.style.transform = 'translateX(-150%) rotate(-10deg)';
-
-                                    setTimeout(() => {
-                                        flipCard.style.transform = '';
-                                        flipCard.style.transition = 'none';
-                                        handleKnown(false);
-                                        setTimeout(() => {
-                                            flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                            isAnimating = false;
-                                        }, 50);
-                                    }, 300);
-                                }, 100);
-                            }, 2000);
-                        }, 200);
-                    }
-                } else {
-                    flipCard.style.transform = '';
-                    if (Math.abs(delta) < 10) {
-                        flipCard.classList.toggle('flipped');
-                        isFlipped = flipCard.classList.contains('flipped');
-                    }
-                }
-            });
-
-            // 鼠标事件
-            flipCard.addEventListener('mousedown', (e) => {
-                if (isAnimating) return;
-                e.preventDefault();
-                startX = e.clientX;
-                isDragging = true;
-                flipCard.classList.add('dragging');
-                flipCard.style.transition = 'none';
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging || isAnimating) return;
-                e.preventDefault();
-                currentX = e.clientX;
-                let delta = currentX - startX;
-                let rotate = delta * 0.05;
-                flipCard.style.transform = `translateX(${delta}px) rotate(${rotate}deg)`;
-            });
-
-            window.addEventListener('mouseup', () => {
-                if (!isDragging || isAnimating) return;
-                isDragging = false;
-                flipCard.classList.remove('dragging');
-
-                let delta = currentX - startX;
-
-                if (Math.abs(delta) > threshold) {
-                    isAnimating = true;
-
-                    if (delta > 0) {
-                        flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                        flipCard.style.transform = 'translateX(150%) rotate(10deg)';
-
-                        if (isFlipped) {
-                            flipCard.classList.remove('flipped');
-                            isFlipped = false;
-                        }
-
-                        setTimeout(() => {
-                            flipCard.style.transform = '';
-                            flipCard.style.transition = 'none';
-                            handleKnown(true);
-                            setTimeout(() => {
-                                flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                isAnimating = false;
-                            }, 50);
-                        }, 300);
-                    } else {
-                        flipCard.style.transition = 'transform 0.2s ease';
-                        flipCard.style.transform = '';
-
-                        setTimeout(() => {
-                            flipCard.classList.add('flipped');
-                            isFlipped = true;
-
-                            setTimeout(() => {
-                                flipCard.classList.remove('flipped');
-                                isFlipped = false;
-
-                                setTimeout(() => {
-                                    flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                    flipCard.style.transform = 'translateX(-150%) rotate(-10deg)';
-
-                                    setTimeout(() => {
-                                        flipCard.style.transform = '';
-                                        flipCard.style.transition = 'none';
-                                        handleKnown(false);
-                                        setTimeout(() => {
-                                            flipCard.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1)';
-                                            isAnimating = false;
-                                        }, 50);
-                                    }, 300);
-                                }, 100);
-                            }, 2000);
-                        }, 200);
-                    }
-                } else {
-                    flipCard.style.transform = '';
-                    if (Math.abs(delta) < 10) {
-                        flipCard.classList.toggle('flipped');
-                        isFlipped = flipCard.classList.contains('flipped');
-                    }
-                }
-            });
-
-            // ========== 页面切换 ==========
-            navReview.addEventListener('click', () => {
-                currentPage = 'review';
-                navReview.classList.add('active');
-                navDictionary.classList.remove('active');
-                navSettings.classList.remove('active');
-                reviewPage.classList.remove('hidden');
-                dictionaryPage.classList.add('hidden');
-                settingsPage.classList.add('hidden');
-                requestAnimationFrame(() => {
-                    renderCardSelection();
-                    updateSelectedCount();
-                });
-            });
-
-            navDictionary.addEventListener('click', () => {
-                currentPage = 'dictionary';
-                navReview.classList.remove('active');
-                navDictionary.classList.add('active');
-                navSettings.classList.remove('active');
-                reviewPage.classList.add('hidden');
-                dictionaryPage.classList.remove('hidden');
-                settingsPage.classList.add('hidden');
-                requestAnimationFrame(() => {
-                    renderDictSubjectTabs();
-                    renderGroupTabs();
-                    renderDictionary();
-                });
-            });
-
-            navSettings.addEventListener('click', () => {
-                currentPage = 'settings';
-                navReview.classList.remove('active');
-                navDictionary.classList.remove('active');
-                navSettings.classList.add('active');
-                reviewPage.classList.add('hidden');
-                dictionaryPage.classList.add('hidden');
-                settingsPage.classList.remove('hidden');
-                updateTotalCardsCount();
-            });
-
-            // ========== 按钮事件 ==========
             startReviewBtn.addEventListener('click', startReview);
             backToSelectionBtn.addEventListener('click', backToSelection);
-            restartReviewBtn.addEventListener('click', () => {
-                backToSelection();
-            });
+            restartReviewBtn.addEventListener('click', () => backToSelection());
+            selectAllBtn.addEventListener('click', () => { let subjectFilter = filterSubject.value; let groupFilter = filterGroup.value; selectedCards = []; subjects.forEach(subj => { (cardData[subj] || []).forEach((card, idx) => { if (subjectFilter === 'all' || subj === subjectFilter) { if (groupFilter === 'all' || card.group === groupFilter) { selectedCards.push({ subject: subj, index: idx }); } } }); }); renderCardSelection(); updateSelectedCount(); });
+            clearAllBtn.addEventListener('click', () => { selectedCards = []; renderCardSelection(); updateSelectedCount(); });
+            filterSubject.addEventListener('change', () => { updateGroupFilter(); renderCardSelection(); });
+            filterGroup.addEventListener('change', () => { renderCardSelection(); });
+            showAddCardBtn.addEventListener('click', () => addCardForm.classList.toggle('hidden'));
+            cancelAddCard.addEventListener('click', () => { addCardForm.classList.add('hidden'); document.getElementById('cardQuestion').value = ''; document.getElementById('cardAnswer').value = ''; document.getElementById('cardAnnotation').value = ''; });
+            saveCard.addEventListener('click', () => { let question = document.getElementById('cardQuestion').value.trim(); let answer = document.getElementById('cardAnswer').value.trim(); let group = document.getElementById('cardGroup').value; let annotation = document.getElementById('cardAnnotation').value.trim() || (currentLanguage === 'en' ? 'No notes' : '无注释'); if (!question || !answer) { showMessage('notification', currentLanguage === 'en' ? 'Question and answer cannot be empty' : '问题和答案不能为空'); return; } cardData[currentSubject].push({ question, answer, annotation, group }); document.getElementById('cardQuestion').value = ''; document.getElementById('cardAnswer').value = ''; document.getElementById('cardAnnotation').value = ''; addCardForm.classList.add('hidden'); renderDictionary(); updateTotalCardsCount(); if (currentPage === 'review') renderCardSelection(); });
 
-            selectAllBtn.addEventListener('click', () => {
-                let subjectFilter = filterSubject.value;
-                let groupFilter = filterGroup.value;
+            function renderSubjectManager() { let html = ''; subjects.forEach(subj => { html += `<div class="list-item"><span>${subjectNames[subj]}</span><div class="item-actions"><button class="item-btn edit" onclick="openRenameSubjectModal('${subj}')">${translations[currentLanguage].edit}</button><button class="item-btn delete" onclick="openDeleteSubjectModal('${subj}')">${translations[currentLanguage].delete}</button></div></div>`; }); subjectList.innerHTML = html; }
+            window.openRenameSubjectModal = function (subj) { subjectToEdit = subj; renameSubjectInput.value = subjectNames[subj]; renameSubjectModal.classList.remove('hidden'); subjectManagerModal.classList.add('hidden'); };
+            window.openDeleteSubjectModal = function (subj) { if (subjects.length <= 1) { showMessage('notification', currentLanguage === 'en' ? 'Keep at least one subject' : '至少保留一个学科'); return; } subjectToEdit = subj; deleteSubjectModal.classList.remove('hidden'); subjectManagerModal.classList.add('hidden'); };
+            manageSubjectBtn.addEventListener('click', () => { renderSubjectManager(); subjectManagerModal.classList.remove('hidden'); });
+            closeSubjectManager.addEventListener('click', () => subjectManagerModal.classList.add('hidden'));
+            addSubjectBtn.addEventListener('click', () => { let newName = newSubjectName.value.trim(); if (newName) { let baseKey = newName.toLowerCase().replace(/\s+/g, '_'); let key = baseKey; let counter = 1; while (subjects.includes(key)) key = baseKey + '_' + counter++; subjects.push(key); subjectNames[key] = newName; cardData[key] = []; groupData[key] = ['Default']; renderSubjectManager(); renderDictSubjectTabs(); updateTotalCardsCount(); newSubjectName.value = ''; } });
+            saveRenameSubject.addEventListener('click', () => { let newName = renameSubjectInput.value.trim(); if (newName) { subjectNames[subjectToEdit] = newName; renderSubjectManager(); renderDictSubjectTabs(); updateDictTitle(); renameSubjectModal.classList.add('hidden'); subjectManagerModal.classList.remove('hidden'); } });
+            cancelRenameSubject.addEventListener('click', () => { renameSubjectModal.classList.add('hidden'); subjectManagerModal.classList.remove('hidden'); });
+            confirmDeleteSubject.addEventListener('click', () => { if (subjects.length <= 1) { showMessage('notification', currentLanguage === 'en' ? 'Keep at least one subject' : '至少保留一个学科'); deleteSubjectModal.classList.add('hidden'); subjectManagerModal.classList.remove('hidden'); return; } let index = subjects.indexOf(subjectToEdit); subjects.splice(index, 1); delete cardData[subjectToEdit]; delete groupData[subjectToEdit]; delete subjectNames[subjectToEdit]; if (currentSubject === subjectToEdit) { currentSubject = subjects[0]; currentGroup = 'All'; isFlipped = false; flipCard.classList.remove('flipped'); renderGroupTabs(); renderDictSubjectTabs(); renderDictionary(); } renderSubjectManager(); renderDictSubjectTabs(); updateDictTitle(); updateTotalCardsCount(); deleteSubjectModal.classList.add('hidden'); subjectManagerModal.classList.remove('hidden'); });
+            cancelDeleteSubject.addEventListener('click', () => { deleteSubjectModal.classList.add('hidden'); subjectManagerModal.classList.remove('hidden'); });
 
-                selectedCards = [];
-                subjects.forEach(subj => {
-                    (cardData[subj] || []).forEach((card, idx) => {
-                        if (subjectFilter === 'all' || subj === subjectFilter) {
-                            if (groupFilter === 'all' || card.group === groupFilter) {
-                                selectedCards.push({ subject: subj, index: idx });
-                            }
-                        }
-                    });
-                });
+            function renderGroupManager() { let groups = getGroupNames(); let html = ''; groups.forEach(group => { html += `<div class="list-item"><span>${group}</span><div class="item-actions"><button class="item-btn edit" onclick="openRenameGroupModal('${group}')">${translations[currentLanguage].edit}</button><button class="item-btn delete" onclick="openDeleteGroupModal('${group}')">${translations[currentLanguage].delete}</button></div></div>`; }); groupList.innerHTML = html; }
+            window.openRenameGroupModal = function (group) { groupToEdit = group; renameGroupInput.value = group; renameGroupModal.classList.remove('hidden'); groupManagerModal.classList.add('hidden'); };
+            window.openDeleteGroupModal = function (group) { if (group === 'Default' || group === '默认分组') { showMessage('notification', currentLanguage === 'en' ? 'Cannot delete default group' : '不能删除默认分组'); return; } groupToEdit = group; deleteGroupModal.classList.remove('hidden'); groupManagerModal.classList.add('hidden'); };
+            manageGroupBtn.addEventListener('click', () => { renderGroupManager(); groupManagerModal.classList.remove('hidden'); });
+            closeGroupManager.addEventListener('click', () => groupManagerModal.classList.add('hidden'));
+            addGroupBtn.addEventListener('click', () => { let newGroup = newGroupName.value.trim(); if (newGroup && !getGroupNames().includes(newGroup)) { groupData[currentSubject].push(newGroup); renderGroupManager(); renderGroupTabs(); newGroupName.value = ''; } });
+            saveRenameGroup.addEventListener('click', () => { let newName = renameGroupInput.value.trim(); if (newName && newName !== 'Default' && newName !== '默认分组' && !getGroupNames().includes(newName)) { cardData[currentSubject].forEach(card => { if (card.group === groupToEdit) card.group = newName; }); let index = groupData[currentSubject].indexOf(groupToEdit); groupData[currentSubject][index] = newName; if (currentGroup === groupToEdit) currentGroup = newName; renderGroupManager(); renderGroupTabs(); renderDictionary(); renameGroupModal.classList.add('hidden'); groupManagerModal.classList.remove('hidden'); } });
+            cancelRenameGroup.addEventListener('click', () => { renameGroupModal.classList.add('hidden'); groupManagerModal.classList.remove('hidden'); });
+            confirmDeleteGroup.addEventListener('click', () => { if (getGroupNames().length <= 1) { showMessage('notification', currentLanguage === 'en' ? 'Keep at least one group' : '至少保留一个分组'); deleteGroupModal.classList.add('hidden'); groupManagerModal.classList.remove('hidden'); return; } cardData[currentSubject].forEach(card => { if (card.group === groupToEdit) card.group = 'Default'; }); let index = groupData[currentSubject].indexOf(groupToEdit); groupData[currentSubject].splice(index, 1); if (currentGroup === groupToEdit) currentGroup = 'All'; renderGroupManager(); renderGroupTabs(); renderDictionary(); deleteGroupModal.classList.add('hidden'); groupManagerModal.classList.remove('hidden'); });
+            cancelDeleteGroup.addEventListener('click', () => { deleteGroupModal.classList.add('hidden'); groupManagerModal.classList.remove('hidden'); });
 
-                renderCardSelection();
-                updateSelectedCount();
-            });
+            aboutBtn.addEventListener('click', () => aboutModal.classList.remove('hidden'));
+            closeAboutModal.addEventListener('click', () => aboutModal.classList.add('hidden'));
+            themeToggle.querySelectorAll('.theme-option').forEach(btn => { btn.addEventListener('click', () => { let theme = btn.dataset.theme; document.body.classList.toggle('dark-mode', theme === 'dark'); themeToggle.querySelectorAll('.theme-option').forEach(b => b.classList.toggle('active', b.dataset.theme === theme)); }); });
+            themeColor.addEventListener('input', (e) => { let color = e.target.value; document.documentElement.style.setProperty('--accent-color', color); document.documentElement.style.setProperty('--accent-hover', color + 'dd'); if (colorValue) colorValue.innerText = color; });
+            animationStyle.addEventListener('change', (e) => document.body.setAttribute('data-animation', e.target.value));
+            languageSelector.addEventListener('change', (e) => setLanguage(e.target.value));
+            window.addEventListener('click', (e) => { if (e.target === renameSubjectModal) renameSubjectModal.classList.add('hidden'); if (e.target === deleteSubjectModal) deleteSubjectModal.classList.add('hidden'); if (e.target === renameGroupModal) renameGroupModal.classList.add('hidden'); if (e.target === deleteGroupModal) deleteGroupModal.classList.add('hidden'); if (e.target === subjectManagerModal) subjectManagerModal.classList.add('hidden'); if (e.target === groupManagerModal) groupManagerModal.classList.add('hidden'); if (e.target === aboutModal) aboutModal.classList.add('hidden'); if (e.target === exportModal) exportModal.classList.add('hidden'); if (e.target === importModal) importModal.classList.add('hidden'); if (e.target === messageModal) messageModal.classList.add('hidden'); });
 
-            clearAllBtn.addEventListener('click', () => {
-                selectedCards = [];
-                renderCardSelection();
-                updateSelectedCount();
-            });
-
-            filterSubject.addEventListener('change', () => {
-                updateGroupFilter();
-                renderCardSelection();
-            });
-
-            filterGroup.addEventListener('change', () => {
-                renderCardSelection();
-            });
-
-            // ========== 添加卡片 ==========
-            showAddCardBtn.addEventListener('click', () => {
-                addCardForm.classList.toggle('hidden');
-            });
-
-            cancelAddCard.addEventListener('click', () => {
-                addCardForm.classList.add('hidden');
-                document.getElementById('cardQuestion').value = '';
-                document.getElementById('cardAnswer').value = '';
-                document.getElementById('cardAnnotation').value = '';
-            });
-
-            saveCard.addEventListener('click', () => {
-                let question = document.getElementById('cardQuestion').value.trim();
-                let answer = document.getElementById('cardAnswer').value.trim();
-                let group = document.getElementById('cardGroup').value;
-                let annotation = document.getElementById('cardAnnotation').value.trim() || '无注释';
-
-                if (!question || !answer) {
-                    alert('问题和答案不能为空');
-                    return;
-                }
-
-                cardData[currentSubject].push({ question, answer, annotation, group });
-
-                document.getElementById('cardQuestion').value = '';
-                document.getElementById('cardAnswer').value = '';
-                document.getElementById('cardAnnotation').value = '';
-
-                addCardForm.classList.add('hidden');
-                renderDictionary();
-                updateTotalCardsCount();
-
-                if (currentPage === 'review') {
-                    renderCardSelection();
-                }
-            });
-
-            // ========== 学科管理 ==========
-            function renderSubjectManager() {
-                let html = '';
-                subjects.forEach(subj => {
-                    html += `
-                        <div class="list-item">
-                            <span>${subjectNames[subj]}</span>
-                            <div class="item-actions">
-                                <button class="item-btn edit" onclick="openRenameSubjectModal('${subj}')">编辑</button>
-                                <button class="item-btn delete" onclick="openDeleteSubjectModal('${subj}')">删除</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                subjectList.innerHTML = html;
-            }
-
-            window.openRenameSubjectModal = function (subj) {
-                subjectToEdit = subj;
-                renameSubjectInput.value = subjectNames[subj];
-                renameSubjectModal.classList.remove('hidden');
-                subjectManagerModal.classList.add('hidden');
-            };
-
-            window.openDeleteSubjectModal = function (subj) {
-                if (subjects.length <= 1) {
-                    alert('至少保留一个学科');
-                    return;
-                }
-                subjectToEdit = subj;
-                deleteSubjectModal.classList.remove('hidden');
-                subjectManagerModal.classList.add('hidden');
-            };
-
-            manageSubjectBtn.addEventListener('click', () => {
-                renderSubjectManager();
-                subjectManagerModal.classList.remove('hidden');
-            });
-
-            closeSubjectManager.addEventListener('click', () => {
-                subjectManagerModal.classList.add('hidden');
-            });
-
-            addSubjectBtn.addEventListener('click', () => {
-                let newName = newSubjectName.value.trim();
-                if (newName) {
-                    let baseKey = newName.toLowerCase().replace(/\s+/g, '_');
-                    let key = baseKey;
-                    let counter = 1;
-                    while (subjects.includes(key)) {
-                        key = baseKey + '_' + counter;
-                        counter++;
-                    }
-
-                    subjects.push(key);
-                    subjectNames[key] = newName;
-                    cardData[key] = [];
-                    groupData[key] = ['默认分组'];
-
-                    renderSubjectManager();
-                    renderDictSubjectTabs();
-                    updateTotalCardsCount();
-                    newSubjectName.value = '';
-                }
-            });
-
-            saveRenameSubject.addEventListener('click', () => {
-                let newName = renameSubjectInput.value.trim();
-                if (newName) {
-                    subjectNames[subjectToEdit] = newName;
-                    renderSubjectManager();
-                    renderDictSubjectTabs();
-                    updateDictCounters();
-                    renameSubjectModal.classList.add('hidden');
-                    subjectManagerModal.classList.remove('hidden');
-                }
-            });
-
-            cancelRenameSubject.addEventListener('click', () => {
-                renameSubjectModal.classList.add('hidden');
-                subjectManagerModal.classList.remove('hidden');
-            });
-
-            confirmDeleteSubject.addEventListener('click', () => {
-                if (subjects.length <= 1) {
-                    alert('至少保留一个学科');
-                    deleteSubjectModal.classList.add('hidden');
-                    subjectManagerModal.classList.remove('hidden');
-                    return;
-                }
-
-                let index = subjects.indexOf(subjectToEdit);
-                subjects.splice(index, 1);
-                delete cardData[subjectToEdit];
-                delete groupData[subjectToEdit];
-                delete subjectNames[subjectToEdit];
-
-                if (currentSubject === subjectToEdit) {
-                    currentSubject = subjects[0];
-                    currentGroup = '全部';
-                    isFlipped = false;
-                    flipCard.classList.remove('flipped');
-                    renderGroupTabs();
-                    renderDictSubjectTabs();
-                    renderDictionary();
-                }
-
-                renderSubjectManager();
-                renderDictSubjectTabs();
-                updateDictCounters();
-                updateTotalCardsCount();
-
-                deleteSubjectModal.classList.add('hidden');
-                subjectManagerModal.classList.remove('hidden');
-            });
-
-            cancelDeleteSubject.addEventListener('click', () => {
-                deleteSubjectModal.classList.add('hidden');
-                subjectManagerModal.classList.remove('hidden');
-            });
-
-            // ========== 分组管理 ==========
-            function renderGroupManager() {
-                let groups = groupData[currentSubject] || ['默认分组'];
-                let html = '';
-                groups.forEach(group => {
-                    html += `
-                        <div class="list-item">
-                            <span>${group}</span>
-                            <div class="item-actions">
-                                <button class="item-btn edit" onclick="openRenameGroupModal('${group}')">编辑</button>
-                                <button class="item-btn delete" onclick="openDeleteGroupModal('${group}')">删除</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                groupList.innerHTML = html;
-            }
-
-            window.openRenameGroupModal = function (group) {
-                groupToEdit = group;
-                renameGroupInput.value = group;
-                renameGroupModal.classList.remove('hidden');
-                groupManagerModal.classList.add('hidden');
-            };
-
-            window.openDeleteGroupModal = function (group) {
-                if (group === '默认分组') {
-                    alert('不能删除默认分组');
-                    return;
-                }
-                groupToEdit = group;
-                deleteGroupModal.classList.remove('hidden');
-                groupManagerModal.classList.add('hidden');
-            };
-
-            manageGroupBtn.addEventListener('click', () => {
-                renderGroupManager();
-                groupManagerModal.classList.remove('hidden');
-            });
-
-            closeGroupManager.addEventListener('click', () => {
-                groupManagerModal.classList.add('hidden');
-            });
-
-            addGroupBtn.addEventListener('click', () => {
-                let newGroup = newGroupName.value.trim();
-                if (newGroup && !groupData[currentSubject].includes(newGroup)) {
-                    groupData[currentSubject].push(newGroup);
-                    renderGroupManager();
-                    renderGroupTabs();
-                    newGroupName.value = '';
-                }
-            });
-
-            saveRenameGroup.addEventListener('click', () => {
-                let newName = renameGroupInput.value.trim();
-                if (newName && newName !== '默认分组' && !groupData[currentSubject].includes(newName)) {
-                    cardData[currentSubject].forEach(card => {
-                        if (card.group === groupToEdit) {
-                            card.group = newName;
-                        }
-                    });
-
-                    let index = groupData[currentSubject].indexOf(groupToEdit);
-                    groupData[currentSubject][index] = newName;
-
-                    if (currentGroup === groupToEdit) {
-                        currentGroup = newName;
-                    }
-
-                    renderGroupManager();
-                    renderGroupTabs();
-                    renderDictionary();
-                    renameGroupModal.classList.add('hidden');
-                    groupManagerModal.classList.remove('hidden');
-                }
-            });
-
-            cancelRenameGroup.addEventListener('click', () => {
-                renameGroupModal.classList.add('hidden');
-                groupManagerModal.classList.remove('hidden');
-            });
-
-            confirmDeleteGroup.addEventListener('click', () => {
-                if (groupData[currentSubject].length <= 1) {
-                    alert('至少保留一个分组');
-                    deleteGroupModal.classList.add('hidden');
-                    groupManagerModal.classList.remove('hidden');
-                    return;
-                }
-
-                cardData[currentSubject].forEach(card => {
-                    if (card.group === groupToEdit) {
-                        card.group = '默认分组';
-                    }
-                });
-
-                let index = groupData[currentSubject].indexOf(groupToEdit);
-                groupData[currentSubject].splice(index, 1);
-
-                if (currentGroup === groupToEdit) {
-                    currentGroup = '全部';
-                }
-
-                renderGroupManager();
-                renderGroupTabs();
-                renderDictionary();
-
-                deleteGroupModal.classList.add('hidden');
-                groupManagerModal.classList.remove('hidden');
-            });
-
-            cancelDeleteGroup.addEventListener('click', () => {
-                deleteGroupModal.classList.add('hidden');
-                groupManagerModal.classList.remove('hidden');
-            });
-
-            // ========== 设置功能 ==========
-            themeToggle.querySelectorAll('.theme-option').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    let theme = btn.dataset.theme;
-                    document.body.classList.toggle('dark-mode', theme === 'dark');
-                    themeToggle.querySelectorAll('.theme-option').forEach(b => {
-                        b.classList.toggle('active', b.dataset.theme === theme);
-                    });
-                });
-            });
-
-            themeColor.addEventListener('input', (e) => {
-                let color = e.target.value;
-                document.documentElement.style.setProperty('--accent-color', color);
-                document.documentElement.style.setProperty('--accent-hover', color + 'dd');
-                if (colorValue) {
-                    colorValue.innerText = color;
-                }
-            });
-
-            animationStyle.addEventListener('change', (e) => {
-                document.body.setAttribute('data-animation', e.target.value);
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === renameSubjectModal) renameSubjectModal.classList.add('hidden');
-                if (e.target === deleteSubjectModal) deleteSubjectModal.classList.add('hidden');
-                if (e.target === renameGroupModal) renameGroupModal.classList.add('hidden');
-                if (e.target === deleteGroupModal) deleteGroupModal.classList.add('hidden');
-                if (e.target === subjectManagerModal) subjectManagerModal.classList.add('hidden');
-                if (e.target === groupManagerModal) groupManagerModal.classList.add('hidden');
-                if (e.target === aboutModal) aboutModal.classList.add('hidden');
-            });
-
-            // ========== 初始化 ==========
-            updateFilters();
+            setLanguage('en');
+            updateFilterOptions();
             renderCardSelection();
             updateSelectedCount();
             renderDictSubjectTabs();
